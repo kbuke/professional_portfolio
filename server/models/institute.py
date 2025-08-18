@@ -18,6 +18,8 @@ class InstituteModel(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), unique=False, nullable=False)
     user = db.relationship("UserModel", back_populates="institutes")
 
+    projects = db.relationship("ProjectModel", back_populates="institute", lazy="dynamic")
+
     @validates("end_date")
     def validate_end_date(self, key, end_date):
         if end_date is None:
@@ -29,4 +31,5 @@ class InstituteModel(db.Model, SerializerMixin):
     serialize_rules = (
         "-user.institutes",
         "-institutes.user",
+        "-projects.institute",
     )

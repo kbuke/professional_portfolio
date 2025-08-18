@@ -1,5 +1,6 @@
 from models.user import UserModel
 from models.institute import InstituteModel
+from models.project import ProjectModel
 
 from app import app 
 from config import db 
@@ -39,5 +40,19 @@ if __name__ == '__main__':
         db.session.add_all([esas])
         db.session.commit()
         print("Finished seeding institutes")
+
+        print("Seeding projects...")
+        nihongo = ProjectModel(
+            name = "Nihongo",
+            title_img= "Will upload later",
+            title_video = "Will also upload later",
+            start_date = date(2024, 8, 1),
+            end_date = date(2024, 9, 23),
+            institute_id = 1
+        )
+        db.session.add_all([nihongo])
+        db.session.commit()
+        print("Finished seeding projects")
+
 
         print("Finished seeding.")
