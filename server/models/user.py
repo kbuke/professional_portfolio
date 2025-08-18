@@ -9,3 +9,9 @@ class UserModel(db.Model, SerializerMixin):
     picture = db.Column(db.String, nullable=False, unique=True)
     intro = db.Column(db.String, nullable=False)
     cv = db.Column(db.String, nullable=False)
+
+    institutes = db.relationship("InstituteModel", back_populates="user", lazy="dynamic")
+
+    serialize_rules = (
+        "-institutes.user",
+    )
