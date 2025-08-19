@@ -52,3 +52,15 @@ class Institute(Resource):
             return{
                 "message": "Institute not found."
             }, 404
+    
+    def delete(self, id):
+        institute = InstituteModel.query.filter(InstituteModel.id==id).first()
+        if institute:
+            db.session.delete(institute)
+            db.session.commit()
+            return{
+                "message": "Institute deleted."
+            }, 200
+        return{
+            "message": "Institute not found"
+        }, 404 

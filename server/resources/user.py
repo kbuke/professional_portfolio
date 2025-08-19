@@ -46,5 +46,5 @@ class User(Resource):
                 "message": "User deleted."
             }, 200
         return{
-            "error: User not found"
-        }
+            "error": "User not found"
+        }, 404
