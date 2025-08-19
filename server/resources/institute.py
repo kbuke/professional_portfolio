@@ -4,7 +4,7 @@ from datetime import datetime
 from models.institute import InstituteModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class InstituteList(Resource):
     def get(self):
@@ -42,3 +42,13 @@ class InstituteList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Institute(Resource):
+    def get(self, id):
+        institute = InstituteModel.query.filter(InstituteModel.id == id).first()
+        if institute:
+            return make_response(institute.to_dict(), 201)
+        else:
+            return{
+                "message": "Institute not found."
+            }, 404
