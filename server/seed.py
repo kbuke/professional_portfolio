@@ -2,6 +2,7 @@ from models.user import UserModel
 from models.institute import InstituteModel
 from models.project import ProjectModel
 from models.paragraph import ParagraphModel
+from models.point import PointModel
 
 from app import app 
 from config import db 
@@ -67,5 +68,12 @@ if __name__ == '__main__':
         db.session.commit()
         print("Finished seeding project paragraphs")
 
+        print("Seeding project points...")
+        nihongo_point_1 = PointModel(
+            point="An app for travel around Japan.",
+            project_id=1
+        )
+        db.session.add_all([nihongo_point_1])
+        db.session.commit()
 
         print("Finished seeding.")
