@@ -29,10 +29,22 @@ class UserList(Resource):
 
 class User(Resource):
     def get(self, id):
-        user_info = UserModel.query.filter(UserModel.id==id).first()
-        if user_info:
-            return make_response(user_info.to_dict(), 201)
+        user = UserModel.query.filter(UserModel.id==id).first()
+        if user:
+            return make_response(user.to_dict(), 201)
         else:
             return {
                 "message": "User not found"
             }, 404
+    
+    def delete(self, id):
+        user = UserModel.query.filter(UserModel.id==id).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            return{
+                "message": "User deleted."
+            }, 200
+        return{
+            "error: User not found"
+        }
