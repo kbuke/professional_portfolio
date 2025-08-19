@@ -18,6 +18,7 @@ class ProjectModel(db.Model, SerializerMixin):
 
     paragraphs = db.relationship("ParagraphModel", back_populates="projects", lazy="dynamic")
     points = db.relationship("PointModel", back_populates="projects", lazy="dynamic")
+    tech = db.relationship("TechModel", back_populates="projects", secondary="project_tech")
 
     @validates("end_date")
     def validate_end_date(self, key, end_date):
@@ -34,4 +35,5 @@ class ProjectModel(db.Model, SerializerMixin):
         "-paragraphs.institute",
         "-projects.pragraphs",
         "-projects.institute",
+        "-tech.projects",
     )

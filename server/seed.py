@@ -1,8 +1,11 @@
 from models.user import UserModel
 from models.institute import InstituteModel
+from models.qualification import QualificationModel
 from models.project import ProjectModel
 from models.paragraph import ParagraphModel
 from models.point import PointModel
+from models.tech import TechModel
+from models.project_tech import ProjectTechModel
 
 from app import app 
 from config import db 
@@ -43,6 +46,18 @@ if __name__ == '__main__':
         db.session.commit()
         print("Finished seeding institutes")
 
+        print("Seeding qualifications...")
+        flatiron_certificate = QualificationModel(
+            title="Software Engineering Qualification",
+            img_1="Will upload later",
+            img_2=None,
+            date=date(2024, 9, 23),
+            institute_id=1
+        )
+        db.session.add_all([flatiron_certificate])
+        db.session.commit()
+        print("Finished seeding institutes")
+
         print("Seeding projects...")
         nihongo = ProjectModel(
             name = "Nihongo",
@@ -75,5 +90,23 @@ if __name__ == '__main__':
         )
         db.session.add_all([nihongo_point_1])
         db.session.commit()
+
+        print("Seeding tech")
+        javascript = TechModel(
+            name="JavaScript",
+            img="Will update later."
+        )
+        db.session.add_all([javascript])
+        db.session.commit()
+        print("Finished seeding tech")
+
+        print("Seeding project tech")
+        nihongo_js = ProjectTechModel(
+            project_id=1,
+            tech_id=1
+        )
+        db.session.add_all([nihongo_js])
+        db.session.commit()
+        print("Finished seeding project tech")
 
         print("Finished seeding.")
