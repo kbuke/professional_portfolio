@@ -4,7 +4,9 @@ from resources.institute import InstituteList, Institute
 
 from resources.qualification import QualificationList
 from resources.project import ProjectList
-from resources.paragraph import ParagraphList
+
+from resources.paragraph import ParagraphList, Paragraph
+
 from resources.point import PointsList
 from resources.tech import TechList
 from resources.project_tech import ProjectTechList
@@ -24,6 +26,7 @@ api.add_resource(ProjectList, "/projects")
 
 
 api.add_resource(ParagraphList, "/paragraphs")
+api.add_resource(Paragraph, "/paragraphs/<int:id>")
 
 
 api.add_resource(PointsList, "/points")

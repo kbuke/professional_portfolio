@@ -3,7 +3,7 @@ from config import db
 from models.paragraph import ParagraphModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class ParagraphList(Resource):
     def get(self):
@@ -28,3 +28,25 @@ class ParagraphList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Paragraph(Resource):
+    def get(self, id):
+        paragraph = ParagraphModel.query.filter(ParagraphModel.id==id).first()
+        if paragraph:
+            return make_response(paragraph.to_dict(), 201)
+        else:
+            return{
+                "message": "Paragraph not found"
+            }, 404 
+        
+    def delete(self, id):
+        paragraph = ParagraphModel.query.filter(ParagraphModel.id==id).first()
+        if paragraph:
+            db.session.delete(paragraph)
+            db.session.commit()
+            return{
+                "message": "Paragraph deleted"
+            }, 200
+        return{
+            "message": "Paragraph not found."
+        }, 404
