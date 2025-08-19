@@ -3,7 +3,7 @@ from config import db
 from models.point import PointModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class PointsList(Resource):
     def get(self):
@@ -25,3 +25,13 @@ class PointsList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Points(Resource):
+    def get(self, id):
+        point = PointModel.query.filter(PointModel.id==id).first()
+        if point:
+            return make_response(point.to_dict(), 201)
+        else:
+            return{
+                "message": "Point not found"
+            }, 404

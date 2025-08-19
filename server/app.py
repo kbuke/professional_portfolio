@@ -7,7 +7,8 @@ from resources.project import ProjectList
 
 from resources.paragraph import ParagraphList, Paragraph
 
-from resources.point import PointsList
+from resources.point import PointsList, Points
+
 from resources.tech import TechList
 from resources.project_tech import ProjectTechList
 
@@ -30,6 +31,7 @@ api.add_resource(Paragraph, "/paragraphs/<int:id>")
 
 
 api.add_resource(PointsList, "/points")
+api.add_resource(Points, "/points/<int:id>")
 
 
 api.add_resource(TechList, "/tech")
