@@ -35,3 +35,15 @@ class Points(Resource):
             return{
                 "message": "Point not found"
             }, 404
+    
+    def delete(self, id):
+        point = PointModel.query.filter(PointModel.id==id).first()
+        if point:
+            db.session.delete(point)
+            db.session.commit()
+            return{
+                "message": "Point deleted"
+            }, 201
+        return{
+            "message": "Could not find point"
+        }, 404
