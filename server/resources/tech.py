@@ -34,3 +34,15 @@ class Tech(Resource):
             return{
                 "message": "Tech could not be found."
             }, 404
+    
+    def delete(self, id):
+        tech=TechModel.query.filter(TechModel.id==id).first()
+        if tech:
+            db.session.delete(tech)
+            db.session.commit()
+            return{
+                "message": "tech deleted"
+            }, 200 
+        return{
+            "message": "Tech not found"
+        }, 404
