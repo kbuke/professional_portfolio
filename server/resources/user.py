@@ -3,7 +3,7 @@ from config import db
 from models.user import UserModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class UserList(Resource):
     def get(self):
@@ -26,3 +26,13 @@ class UserList(Resource):
             return{
                 "error": [str(e)]
             }, 400
+
+class User(Resource):
+    def get(self, id):
+        user_info = UserModel.query.filter(UserModel.id==id).first()
+        if user_info:
+            return make_response(user_info.to_dict(), 201)
+        else:
+            return {
+                "message": "User not found"
+            }, 404

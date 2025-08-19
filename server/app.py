@@ -1,4 +1,6 @@
 from resources.user import UserList
+from resources.user import User
+
 from resources.institute import InstituteList
 from resources.qualification import QualificationList
 from resources.project import ProjectList
@@ -10,6 +12,8 @@ from resources.project_tech import ProjectTechList
 from config import api, app
 
 api.add_resource(UserList, "/users")
+api.add_resource(User, "/users/<int:id>")
+
 api.add_resource(InstituteList, "/institutes")
 api.add_resource(QualificationList, "/qualifications")
 api.add_resource(ProjectList, "/projects")
