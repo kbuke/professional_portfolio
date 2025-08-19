@@ -24,3 +24,13 @@ class TechList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Tech(Resource):
+    def get(self, id):
+        tech=TechModel.query.filter(TechModel.id==id).first()
+        if tech:
+            return make_response(tech.to_dict(), 201)
+        else:
+            return{
+                "message": "Tech could not be found."
+            }, 404

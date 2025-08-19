@@ -9,7 +9,8 @@ from resources.paragraph import ParagraphList, Paragraph
 
 from resources.point import PointsList, Points
 
-from resources.tech import TechList
+from resources.tech import TechList, Tech
+
 from resources.project_tech import ProjectTechList
 
 from config import api, app
@@ -35,7 +36,7 @@ api.add_resource(Points, "/points/<int:id>")
 
 
 api.add_resource(TechList, "/tech")
-
+api.add_resource(Tech, "/tech/<int:id>")
 
 api.add_resource(ProjectTechList, "/projecttech")
 
