@@ -9,8 +9,8 @@ flask-migrate = "*"
 flask-restful = "*"
 flask-sqlalchemy = "*"
 flask-bcrypt = "*"
-sqlalchemy-serializer = "*"
 marshmallow = "*"
+sqlalchemy-serializer = "*"
 
 [dev-packages]
 

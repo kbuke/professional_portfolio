@@ -1,6 +1,7 @@
 from models.user import UserModel
 from models.institute import InstituteModel
 from models.project import ProjectModel
+from models.paragraph import ParagraphModel
 
 from app import app 
 from config import db 
@@ -53,6 +54,18 @@ if __name__ == '__main__':
         db.session.add_all([nihongo])
         db.session.commit()
         print("Finished seeding projects")
+
+        print("Seeding project paragraphs")
+        nihongo_1 = ParagraphModel(
+            title="Nihongo's Goal",
+            text="I want to make a cool application.",
+            img_1="Insert later",
+            img_2="Again, I'll insert later",
+            project_id=1
+        )
+        db.session.add_all([nihongo_1])
+        db.session.commit()
+        print("Finished seeding project paragraphs")
 
 
         print("Finished seeding.")
