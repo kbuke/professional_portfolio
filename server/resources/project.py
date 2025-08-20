@@ -56,3 +56,15 @@ class Project(Resource):
             return{
                 "message": "Project not found."
             }, 404
+    
+    def delete(self, id):
+        project = ProjectModel.query.filter(ProjectModel.id==id).first()
+        if project:
+            db.session.delete(project)
+            db.session.commit()
+            return{
+                "message": "Project deleted"
+            }, 201 
+        return{
+            "message": "Project not found"
+        }, 404
