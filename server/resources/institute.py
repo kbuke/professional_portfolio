@@ -64,3 +64,21 @@ class Institute(Resource):
         return{
             "message": "Institute not found"
         }, 404 
+    
+    def patch(self, id):
+        data = request.get_json()
+        institute = InstituteModel.query.filter(InstituteModel.id==id).first()
+        if institute:
+            try:
+                for attr in data:
+                    setattr(institute, attr, data[attr])
+                db.session.add(institute)
+                db.session.commit()
+                return make_response(institute.to_dict(), 202)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400
+        return{
+            "error": "institute not found."
+        }, 404
