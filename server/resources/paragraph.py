@@ -50,3 +50,21 @@ class Paragraph(Resource):
         return{
             "message": "Paragraph not found."
         }, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+        paragraph = ParagraphModel.query.filter(ParagraphModel.id==id).first()
+        if paragraph:
+            try:
+                for attr in data:
+                    setattr(paragraph, attr, data[attr])
+                db.session.add(paragraph)
+                db.session.commit()
+                return make_response(paragraph.to_dict(), 202)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400
+        return{
+            "error": "Paragraph not found."
+        }, 404
