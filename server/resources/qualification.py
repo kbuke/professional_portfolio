@@ -54,3 +54,21 @@ class Qualification(Resource):
         return{
             "message": "Qualification not found"
         }, 404
+    
+    def patch(self, id):
+        data=request.get_json()
+        qualification = QualificationModel.query.filter(QualificationModel.id==id).first()
+        if qualification:
+            try:
+                for attr in data:
+                    setattr(qualification, attr, data[attr])
+                db.session.add(qualification)
+                db.session.commit()
+                return make_response(qualification.to_dict(), 202)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400
+        return{
+            "message": "Qualification not found."
+        }, 404
