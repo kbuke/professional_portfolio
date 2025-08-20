@@ -1,12 +1,8 @@
 from resources.user import UserList, User
-
 from resources.institute import InstituteList, Institute
-
-from resources.qualification import QualificationList
+from resources.qualification import QualificationList, Qualification
 from resources.project import ProjectList
-
 from resources.paragraph import ParagraphList, Paragraph
-
 from resources.point import PointsList, Points
 
 from resources.tech import TechList, Tech
@@ -22,7 +18,7 @@ api.add_resource(InstituteList, "/institutes")
 api.add_resource(Institute, "/institutes/<int:id>")
 
 api.add_resource(QualificationList, "/qualifications")
-
+api.add_resource(Qualification, "/qualifications/<int:id>")
 
 api.add_resource(ProjectList, "/projects")
 

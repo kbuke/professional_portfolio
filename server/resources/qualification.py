@@ -4,7 +4,7 @@ from datetime import datetime
 from models.qualification import QualificationModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class QualificationList(Resource):
     def get(self):
@@ -33,3 +33,9 @@ class QualificationList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Qualification(Resource):
+    def get(self, id):
+        qualification = QualificationModel.query.filter(QualificationModel.id==id).first()
+        if qualification:
+            return make_response(qualification.to_dict(), 201)
