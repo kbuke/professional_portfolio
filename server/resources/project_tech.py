@@ -45,3 +45,21 @@ class ProjectTech(Resource):
         return{
             "error": "Project-tech not found"
         }, 404
+
+    def patch(self, id):
+        data = request.get_json()
+        project_tech=ProjectTechModel.query.filter(ProjectTechModel.id==id).first()
+        if project_tech:
+            try:
+                for attr in data:
+                    setattr(project_tech, attr, data[attr])
+                db.session.add(project_tech)
+                db.session.commit()
+                return make_response(project_tech.to_dict(), 201)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400 
+        return{
+            "message": "Project-Tech not found."
+        }, 404
