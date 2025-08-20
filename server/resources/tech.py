@@ -46,3 +46,21 @@ class Tech(Resource):
         return{
             "message": "Tech not found"
         }, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+        tech = TechModel.query.filter(TechModel.id==id).first()
+        if tech:
+            try:
+                for attr in data:
+                    setattr(tech, attr, data[attr])
+                db.session.add(tech)
+                db.session.commit()
+                return make_response(tech.to_dict(), 202)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }
+        return{
+            "message": "Tech not found."
+        }, 404
