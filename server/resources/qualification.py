@@ -39,3 +39,18 @@ class Qualification(Resource):
         qualification = QualificationModel.query.filter(QualificationModel.id==id).first()
         if qualification:
             return make_response(qualification.to_dict(), 201)
+        return{
+            "message": "Qualification not found"
+        }, 404
+    
+    def delete(self, id):
+        qualification = QualificationModel.query.filter(QualificationModel.id==id).first()
+        if qualification:
+            db.session.delete(qualification)
+            db.session.commit()
+            return{
+                "message": "Qualification deleted."
+            }, 201 
+        return{
+            "message": "Qualification not found"
+        }, 404
