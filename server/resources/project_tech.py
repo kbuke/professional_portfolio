@@ -33,3 +33,15 @@ class ProjectTech(Resource):
         return{
             "message": "Could not find the specific project-tech combo."
         }, 404
+    
+    def delete(self, id):
+        project_tech = ProjectTechModel.query.filter(ProjectTechModel.id==id).first()
+        if project_tech:
+            db.session.delete(project_tech)
+            db.session.commit()
+            return {
+                "message": "project-tech deleted."
+            }, 200
+        return{
+            "error": "Project-tech not found"
+        }, 404
