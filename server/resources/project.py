@@ -4,7 +4,7 @@ from datetime import datetime
 from models.project import ProjectModel
 
 from flask_restful import Resource
-from flask import session, request
+from flask import session, request, make_response
 
 class ProjectList(Resource):
     def get(self):
@@ -46,3 +46,13 @@ class ProjectList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class Project(Resource):
+    def get(self, id):
+        project = ProjectModel.query.filter(ProjectModel.id==id).first()
+        if project:
+            return make_response(project.to_dict(), 201)
+        else:
+            return{
+                "message": "Project not found."
+            }, 404
