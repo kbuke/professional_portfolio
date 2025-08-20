@@ -68,3 +68,21 @@ class Project(Resource):
         return{
             "message": "Project not found"
         }, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+        project = ProjectModel.query.filter(ProjectModel.id==id).first()
+        if project:
+            try:
+                for attr in data:
+                    setattr(project, attr, data[attr])
+                db.session.add(project)
+                db.session.commit()
+                return make_response(project.to_dict(), 202)
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400 
+        return{
+            "error": "Project not found"
+        }, 404
