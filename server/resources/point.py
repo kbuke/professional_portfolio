@@ -47,3 +47,21 @@ class Points(Resource):
         return{
             "message": "Could not find point"
         }, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+        point = PointModel.query.filter(PointModel.id==id).first()
+        if point:
+            try:
+                for attr in data:
+                    setattr(point, attr, data[attr])
+                db.session.add(point)
+                db.session.commit()
+                return make_response(point.to_dict())
+            except ValueError as e:
+                return{
+                    "message": [str(e)]
+                }, 400 
+        return{
+            "message": "Point not found."
+        }, 404
