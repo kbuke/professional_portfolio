@@ -5,7 +5,7 @@ from resources.project import ProjectList, Project
 from resources.paragraph import ParagraphList, Paragraph
 from resources.point import PointsList, Points
 from resources.tech import TechList, Tech
-from resources.project_tech import ProjectTechList
+from resources.project_tech import ProjectTechList, ProjectTech
 
 from config import api, app
 
@@ -33,6 +33,7 @@ api.add_resource(TechList, "/tech")
 api.add_resource(Tech, "/tech/<int:id>")
 
 api.add_resource(ProjectTechList, "/projecttech")
+api.add_resource(ProjectTech, '/projecttech/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

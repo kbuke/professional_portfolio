@@ -24,3 +24,12 @@ class ProjectTechList(Resource):
             return{
                 "message": [str(e)]
             }, 400
+
+class ProjectTech(Resource):
+    def get(self, id):
+        project_tech = ProjectTechModel.query.filter(ProjectTechModel.id==id).first()
+        if project_tech:
+            return make_response(project_tech.to_dict(), 201)
+        return{
+            "message": "Could not find the specific project-tech combo."
+        }, 404
