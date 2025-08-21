@@ -6,6 +6,7 @@ from resources.paragraph import ParagraphList, Paragraph
 from resources.point import PointsList, Points
 from resources.tech import TechList, Tech
 from resources.project_tech import ProjectTechList, ProjectTech
+from resources.email import EmailList, Email
 
 from config import api, app
 
@@ -34,6 +35,9 @@ api.add_resource(Tech, "/tech/<int:id>")
 
 api.add_resource(ProjectTechList, "/projecttech")
 api.add_resource(ProjectTech, '/projecttech/<int:id>')
+
+api.add_resource(EmailList, "/emails")
+api.add_resource(Email, "/emails/<int:id>")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
