@@ -32,6 +32,13 @@ class InstituteModel(db.Model, SerializerMixin):
     serialize_rules = (
         "-user.institutes",
         "-institutes.user",
+
         "-projects.institute",
+        "-projects.points",
+        "-projects.tech",
+        "-projects.paragraphs",
+
         "-qualifications.institutes",
+
+        "-user",
     )

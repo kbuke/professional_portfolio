@@ -28,8 +28,17 @@ class ProjectModel(db.Model, SerializerMixin):
             raise ValueError("End date must come after the start date")
         return end_date
     
+
+    
     serialize_rules = (
         "-institute.projects",
+        "-institute.user",
+        "-institute.qualifications",
+        "-institute.location",
+        "-institute.end_date",
+        "-institute.start_date",
+        "-institute.user_id",
+
         "-paragraphs.projects",
         "-points.projects",
         "-paragraphs.institute",
