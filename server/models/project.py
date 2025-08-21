@@ -11,7 +11,7 @@ class ProjectModel(db.Model, SerializerMixin):
     title_img = db.Column(db.String)
     title_video = db.Column(db.String)
     start_date = db.Column(db.Date, nullable=False)
-    end_date = db.Column(db.Date, nullable=False)
+    end_date = db.Column(db.Date, nullable=True)
 
     institute_id = db.Column(db.Integer, db.ForeignKey("institutes.id"))
     institute = db.relationship("InstituteModel", back_populates="projects")
@@ -35,8 +35,6 @@ class ProjectModel(db.Model, SerializerMixin):
         "-institute.user",
         "-institute.qualifications",
         "-institute.location",
-        "-institute.end_date",
-        "-institute.start_date",
         "-institute.user_id",
 
         "-paragraphs.projects",

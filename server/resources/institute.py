@@ -22,7 +22,8 @@ class InstituteList(Resource):
         
         if isinstance(chosen_end_date, str):
             chosen_end_date = datetime.strptime(chosen_end_date, "%Y-%m-%d").date()
-        elif chosen_end_date is None:
+        # elif chosen_end_date is None:
+        else:
             chosen_end_date = None
 
         try:
