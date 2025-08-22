@@ -2,6 +2,7 @@ from config import db
 from datetime import datetime
 
 from models.qualification import QualificationModel
+from models.institute import InstituteModel
 
 from flask_restful import Resource
 from flask import session, request, make_response
@@ -13,18 +14,43 @@ class QualificationList(Resource):
     
     def post(self):
         json=request.get_json()
+
+        institution_id = json.get("institute_id")
+        institute = InstituteModel.query.filter(InstituteModel.id==institution_id).first()
+
+        # Handle logic for qualification dates based on the dates at institute.
+        institution_start_date = institute.start_date
+        institution_end_date = institute.end_date 
         
-        selected_date = json.get("date")
-        if isinstance(selected_date, str):
-            selected_date=datetime.strptime(selected_date, "%Y-%m-%d").date()
+        qualification_date = json.get("date")
+        qualification_date = datetime.strptime(qualification_date, "%Y-%m-%d").date()
+
+        if institution_end_date:
+            if institution_start_date <= qualification_date <= institution_end_date:
+                qualification_date=qualification_date
+
+            else:
+                return{
+                    "message": f"Qualification date must be between {institution_start_date} and {institution_end_date}"
+                }
+            
+        else:
+            if institution_start_date < qualification_date:
+                qualification_date=qualification_date
+            else:
+                return{
+                    "message": f"Qualification date must be after {institution_start_date}"
+                }
+        # if isinstance(selected_date, str):
+        #     selected_date=datetime.strptime(selected_date, "%Y-%m-%d").date()
         
         try:
             new_qualification=QualificationModel(
                 title=json.get("title"),
                 img_1=json.get("img_1"),
                 img_2=json.get("img_2"),
-                date=selected_date,
-                institute_id=json.get("institute_id")
+                date=qualification_date,
+                institute_id=institution_id
             )
             db.session.add(new_qualification)
             db.session.commit()
