@@ -7,7 +7,7 @@ from flask import session, request, make_response
 
 from email.message import EmailMessage
 
-import os
+import os, re
 
 import smtplib
 
@@ -25,11 +25,25 @@ class EmailList(Resource):
         password = os.getenv("PASSWORD")
 
         json=request.get_json()
+
+        # handle email logic
+        pattern = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+
+        senders_email = json.get("sender")
+
+        if pattern.match(senders_email):
+            senders_email=senders_email
+        else:
+            return{
+                "message": "Please input a valid email."
+            }, 400
+
         
         try:
             new_email = EmailModel(
                 subject=json.get("subject"),
-                sender=json.get("sender"),
+                # sender=json.get("sender"),
+                sender = senders_email,
                 message=json.get("message"),
                 name=json.get("name")
             )
