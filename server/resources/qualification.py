@@ -41,8 +41,6 @@ class QualificationList(Resource):
                 return{
                     "message": f"Qualification date must be after {institution_start_date}"
                 }
-        # if isinstance(selected_date, str):
-        #     selected_date=datetime.strptime(selected_date, "%Y-%m-%d").date()
         
         try:
             new_qualification=QualificationModel(

@@ -12,6 +12,13 @@ from config import db
 
 from datetime import date
 
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+ac_pw = os.getenv("ACPASSWORD")
+
 if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
@@ -26,8 +33,9 @@ if __name__ == '__main__':
             name = "Kaan Buke",
             picture = "Will upload later",
             intro = "Will write that later too.",
-            cv = "Will upload it later."
+            cv = "Will upload it later.",
         )
+        kaanbuke.password_hash = ac_pw
         db.session.add_all([kaanbuke])
         db.session.commit()
         print("Finished seeding users")
