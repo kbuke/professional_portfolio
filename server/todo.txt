@@ -1,12 +1,7 @@
 1. Check date validations for qualification and projects date.
     They must be within the date confines of the institute.
 
-    Institute and Project
-        If I have finished at the institute:
-            I must have finished my project, therefore must have an end date
-        
-        If I have not finished at the institutes:
-            I could still be working on a project, therefore it could be of null end_date value
+    
 
 
 2. Give the user the option of password hashing
