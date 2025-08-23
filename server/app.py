@@ -8,6 +8,8 @@ from resources.tech import TechList, Tech
 from resources.project_tech import ProjectTechList, ProjectTech
 from resources.email import EmailList, Email
 from resources.login import Login
+from resources.logout import Logout
+from resources.check_session import CheckSession
 
 from config import api, app
 
@@ -41,6 +43,10 @@ api.add_resource(EmailList, "/emails")
 api.add_resource(Email, "/emails/<int:id>")
 
 api.add_resource(Login, "/login")
+
+api.add_resource(Logout, "/logout")
+
+api.add_resource(CheckSession, "/check_session")
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
