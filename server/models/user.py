@@ -11,6 +11,7 @@ class UserModel(db.Model, SerializerMixin):
     intro = db.Column(db.String, nullable=False)
     cv = db.Column(db.String, nullable=False)
     _password_hash = db.Column(db.String, nullable=False, server_default="default_value")
+    email=db.Column(db.String, nullable=False, server_default="default_value")
 
     institutes = db.relationship("InstituteModel", back_populates="user", lazy="dynamic")
 

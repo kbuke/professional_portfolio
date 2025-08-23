@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 ac_pw = os.getenv("ACPASSWORD")
+ac_email = os.getenv("EMAIL")
 
 if __name__ == '__main__':
     with app.app_context():
@@ -34,6 +35,7 @@ if __name__ == '__main__':
             picture = "Will upload later",
             intro = "Will write that later too.",
             cv = "Will upload it later.",
+            email = ac_email
         )
         kaanbuke.password_hash = ac_pw
         db.session.add_all([kaanbuke])
