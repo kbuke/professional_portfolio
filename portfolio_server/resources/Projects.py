@@ -37,3 +37,11 @@ class ProjectList(Resource):
             
             except ValueError as e:
                 return{"error": [str(e)]}, 400
+
+class Project(Resource):
+    def get(self, id):
+        project = ProjectModel.query.filter(ProjectModel.id==id).first()
+        if project:
+            return project.to_dict(), 201
+        else:
+            return {"error": f"Project {id} not found."}, 404
