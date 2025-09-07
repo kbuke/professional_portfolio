@@ -45,3 +45,30 @@ class Project(Resource):
             return project.to_dict(), 201
         else:
             return {"error": f"Project {id} not found."}, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+
+        project = ProjectModel.query.filter(ProjectModel.id == id).first()
+
+        if project:
+            try:
+                for attr in data:
+                    setattr(project, attr, data[attr])
+                db.session.add(project)
+                db.session.commit()
+                return {"message": f"Project {id} updated"}, 201
+            except ValueError as e:
+                return {"error": [str(e)]}
+        else:
+            return {"error": f"Could not find project {id}"}, 404
+        
+    def delete(self, id):
+        project = ProjectModel.query.filter(ProjectModel.id==id).first()
+        if project:
+            db.session.delete(project)
+            db.session.commit()
+            return {"error": f"Project {id} deleted."}, 200
+        else:
+            return{"error": f"Project {id} not found"}, 404
+    
