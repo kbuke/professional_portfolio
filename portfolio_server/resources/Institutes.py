@@ -53,3 +53,12 @@ class Institute(Resource):
                 return {"error": [str(e)]}
         else:
             return {"error": f"Institute {id} not found."}, 404
+        
+    def delete(self, id):
+        institute = InstituteModel.query.filter(InstituteModel.id == id).first()
+        if institute:
+            db.session.delete(institute)
+            db.session.commit()
+            return {"message": f"Institute {id} deleted."}, 201
+        else:
+            return {"error": f"Institute {id} not found."}, 404
