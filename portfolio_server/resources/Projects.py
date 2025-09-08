@@ -18,6 +18,7 @@ class ProjectList(Resource):
         if json:
             try:
                 new_project = ProjectModel(
+                    institute_id = json.get("instituteId"),
                     project_name = json.get("projectModel"),
                     project_img = json.get("projectImg"),
                     project_video = json.get("projectVideo"),

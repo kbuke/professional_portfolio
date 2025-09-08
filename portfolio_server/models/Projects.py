@@ -4,6 +4,8 @@ from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 from datetime import date, datetime
 
+from models.Institutes import InstituteModel
+
 class ProjectModel(db.Model, SerializerMixin):
     __tablename__ = "projects"
 
@@ -14,6 +16,23 @@ class ProjectModel(db.Model, SerializerMixin):
     project_start_date = db.Column(db.Date)
     project_end_date = db.Column(db.Date, nullable = True)
     project_intro = db.Column(db.String, nullable = False)
+
+    # RELATIONS
+    # relationship with institute
+    institute_id = db.Column(db.ForeignKey("institutes.id"))
+    institute = db.relationship("InstituteModel", back_populates = "projects")
+
+    # relationship with points
+    points = db.relationship("ProjectPointModel", back_populates = "project")
+
+    def serialize_institutes(*attributes):
+        return tuple(f"-institute.{attr}" for attr in attributes)
+
+    serialize_rules = (
+        *serialize_institutes("projects", "institute_city", "institute_country", "institute_intro"),
+
+        "-points.project",
+    )
 
     # VALIDATIONS
     # validate if there is a project image or a project video
@@ -49,8 +68,25 @@ class ProjectModel(db.Model, SerializerMixin):
         project_start_date = value if key == "project_start_date" else self.project_start_date
         project_end_date = value if key == "project_end_date" else self.project_end_date
 
+        institute_id = self.institute_id
+
+        institute = InstituteModel.query.filter(InstituteModel.id == institute_id).first()
+
+        institute_start_date = institute.institute_start_date
+        institute_end_date = institute.institute_end_date
+
+        # Ensure project dates are in-line with institute dates.
         if project_start_date and project_end_date and project_end_date < project_start_date:
-            raise ValueError("The project must have ended after the start date.")
+            raise ValueError("You must have started the project before finising it.") #
+
+        if project_start_date < institute_start_date:
+            raise ValueError("You must have started the project after you started at the institute") #
+        
+        if institute_end_date < project_start_date:
+            raise ValueError("You must have started the project before finishing at the institute.") #
+        
+        if institute_end_date and project_end_date and institute_end_date < project_end_date:
+            raise ValueError("You must have finished the project before (or when) finishing the institution") #
         
         return value
     

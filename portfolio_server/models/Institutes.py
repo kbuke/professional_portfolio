@@ -17,6 +17,7 @@ class InstituteModel(db.Model, SerializerMixin):
 
     # RELATIONS
     # Set up relation with projects
+    projects = db.relationship("ProjectModel", back_populates = "institute")
 
     # VALIDATIONS
     # date validations
