@@ -28,3 +28,28 @@ class InstituteList(Resource):
                 return {"message": "New Institute created."}, 201
             except ValueError as e:
                 return {"error": [str(e)]}
+
+class Institute(Resource):
+    def get(self, id):
+        institute = InstituteModel.query.filter(InstituteModel.id == id).first()
+        if institute:
+            return institute.to_dict(), 201
+        else:
+            return {"error": f"Project {id} not found"}, 404
+        
+    def patch(self, id):
+        institute = InstituteModel.query.filter(InstituteModel.id == id).first()
+
+        data = request.get_json()
+
+        if institute:
+            try:
+                for attr in data:
+                    setattr(institute, attr, data[attr])
+                db.session.add(institute)
+                db.session.commit()
+                return {"message": f"Institute {id} updated."}
+            except ValueError as e:
+                return {"error": [str(e)]}
+        else:
+            return {"error": f"Institute {id} not found."}, 404
