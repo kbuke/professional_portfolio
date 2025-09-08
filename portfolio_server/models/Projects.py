@@ -25,6 +25,9 @@ class ProjectModel(db.Model, SerializerMixin):
     # relationship with points
     points = db.relationship("ProjectPointModel", back_populates = "project")
 
+    # relationship with paragraphs
+    paragraphs = db.relationship("ProjectParagraphModel", back_populates = "project")
+
     def serialize_institutes(*attributes):
         return tuple(f"-institute.{attr}" for attr in attributes)
 
@@ -32,6 +35,8 @@ class ProjectModel(db.Model, SerializerMixin):
         *serialize_institutes("projects", "institute_city", "institute_country", "institute_intro"),
 
         "-points.project",
+
+        "-paragraphs.project",
     )
 
     # VALIDATIONS
