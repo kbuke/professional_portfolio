@@ -24,3 +24,37 @@ class ProjectPointsList(Resource):
                 return {"message": "New project point posted."}
             except ValueError as e:
                 return {"error": [str(e)]}
+
+class ProjectPoint(Resource):
+    def get(self, id):
+        point = ProjectPointModel.query.filter(ProjectPointModel.id == id).first()
+        if point:
+            return point.to_dict(), 201
+        else:
+            return {"error": f"Point {id} not found"}, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+
+        point = ProjectPointModel.query.filter(ProjectPointModel.id == id).first()
+
+        if point:
+            try:
+                for attr in data:
+                    setattr(point, attr, data[attr])
+                db.session.add(point)
+                db.session.commit()
+                return {"message": f"Successfully edited point {id}"}
+            except ValueError as e:
+                return {"error": [str(e)]}
+        else:
+            return {"error": f"Point {id} not found."}, 404
+    
+    def delete(self, id):
+        point = ProjectPointModel.query.filter(ProjectPointModel.id == id).first()
+        if point:
+            db.session.delete(point)
+            db.session.commit()
+            return {"message": f"Point {id} deleted."}, 201
+        else:
+            return {"error": f"Point {id} not found"}, 404

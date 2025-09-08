@@ -4,7 +4,7 @@ from resources.Projects import ProjectList, Project
 
 from resources.Institutes import InstituteList, Institute
 
-from resources.ProjectPoints import ProjectPointsList
+from resources.ProjectPoints import ProjectPointsList, ProjectPoint
 
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
@@ -13,6 +13,7 @@ api.add_resource(InstituteList, "/institutes")
 api.add_resource(Institute, "/institutes/<int:id>")
 
 api.add_resource(ProjectPointsList, "/points")
+api.add_resource(ProjectPoint, "/points/<int:id>")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
