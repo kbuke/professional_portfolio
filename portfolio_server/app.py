@@ -10,6 +10,12 @@ from resources.ProjectParagraphs import ProjectParagraphList, Paragraph
 
 from resources.Technology import TechnologyList
 
+from resources.ProjectTech import ProjectTechList
+
+from resources.User import UserList, User
+
+from resources.SocialMedia import SocialMediaLists, SocialMedia
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -23,6 +29,14 @@ api.add_resource(ProjectParagraphList, "/paragrahps")
 api.add_resource(Paragraph, "/paragrahps/<int:id>")
 
 api.add_resource(TechnologyList, "/technologies")
+
+api.add_resource(ProjectTechList, "/projecttechnologies")
+
+api.add_resource(UserList, "/users")
+api.add_resource(User, "/users/<int:id>")
+
+api.add_resource(SocialMediaLists, "/socials")
+api.add_resource(SocialMedia, "/socials/<int:id>")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
