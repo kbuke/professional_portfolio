@@ -3,7 +3,7 @@ from flask_restful import Resource
 from config import db 
 from models.User import UserModel
 
-class CheckSessionModel(Resource):
+class CheckSession(Resource):
     def get(self):
         user_id = session.get("user_id")
         if user_id:

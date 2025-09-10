@@ -20,6 +20,10 @@ from resources.Qualifications import QualificationList, Qualification
 
 from resources.Login import Login
 
+from resources.CheckSession import CheckSession
+
+from resources.Logout import Logout
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -45,7 +49,11 @@ api.add_resource(SocialMedia, "/socials/<int:id>")
 api.add_resource(QualificationList, "/qualifications")
 api.add_resource(Qualification, "/qualifications/<int:id>")
 
+api.add_resource(CheckSession, "/session")
+
 api.add_resource(Login, "/login")
+
+api.add_resource(Logout, "/logout")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
