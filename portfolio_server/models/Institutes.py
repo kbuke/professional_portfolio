@@ -19,6 +19,15 @@ class InstituteModel(db.Model, SerializerMixin):
     # Set up relation with projects
     projects = db.relationship("ProjectModel", back_populates = "institute")
 
+    # Set up relation with qualifications
+    qualifications = db.relationship("QualificationModel", back_populates = "institute")
+
+    # SERIALIZE
+    serialize_rules = (
+        "-projects.institute",
+        "-qualifications.institute",
+    )
+
     # VALIDATIONS
     # date validations
     @validates("institute_start_date", "institute_end_date")
