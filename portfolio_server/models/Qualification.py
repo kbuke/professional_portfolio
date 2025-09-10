@@ -1,4 +1,5 @@
 from config import db 
+from sqlalchemy import func
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.orm import validates
 
@@ -32,7 +33,7 @@ class QualificationModel(db.Model, SerializerMixin):
             raise ValueError("Please enter a valid string.")
         
         if isinstance(value, str):
-            existing = QualificationModel.query.filter(QualificationModel.qualification == value).first()
+            existing = QualificationModel.query.filter(func.lower(QualificationModel.qualification) == value.lower()).first()
             if existing and existing.id != self.id:
                 raise ValueError(f"{value} is an already reguistered qualification.")
         

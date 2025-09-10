@@ -18,6 +18,8 @@ from resources.SocialMedia import SocialMediaLists, SocialMedia
 
 from resources.Qualifications import QualificationList, Qualification
 
+from resources.Login import Login
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -42,6 +44,8 @@ api.add_resource(SocialMedia, "/socials/<int:id>")
 
 api.add_resource(QualificationList, "/qualifications")
 api.add_resource(Qualification, "/qualifications/<int:id>")
+
+api.add_resource(Login, "/login")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
