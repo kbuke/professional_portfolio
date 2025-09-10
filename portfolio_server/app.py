@@ -24,6 +24,8 @@ from resources.CheckSession import CheckSession
 
 from resources.Logout import Logout
 
+from resources.Email import EmailList
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -54,6 +56,8 @@ api.add_resource(CheckSession, "/session")
 api.add_resource(Login, "/login")
 
 api.add_resource(Logout, "/logout")
+
+api.add_resource(EmailList, "/emails")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
