@@ -26,6 +26,8 @@ from resources.Email import EmailList
 
 from resources.BackendProject import BackEndProjectList
 
+from resources.FrontEndProject import FrontEndProjectList
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -58,6 +60,8 @@ api.add_resource(Logout, "/logout")
 api.add_resource(EmailList, "/emails")
 
 api.add_resource(BackEndProjectList, "/backendtech")
+
+api.add_resource(FrontEndProjectList, "/frontendtech")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)

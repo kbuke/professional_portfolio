@@ -10,21 +10,15 @@ class TechnologyModel(db.Model, SerializerMixin):
     tech_img = db.Column(db.String)
 
     # RELATIONS
-    # a many-to-many relationship with projects
-    # projects = db.relationship("ProjectModel", back_populates = "technologies", secondary = "project_technology")
-
-    # associate relation with projectTech
-    # project_technologies = db.relationship("ProjectTechModel", back_populates = "technology")
-
     # relation with bacendTech
     project_back_end = db.relationship("ProjectModel", back_populates = "backend", secondary = "backend_tech")
 
+    # relation with frontendTech
+    project_front_end = db.relationship("ProjectModel", back_populates = "frontend", secondary = "front_end_tech")
+
     # SERIALIZATION
     serialize_rules = (
-        # "-projects.technologies",
-        # "-project_technologies.technology",
-        # "-project_technologies.project",
-        "-project_back_end.backend_tech",
+        "-project_front_end.frontend",
     )
 
     # VALIDATIONS

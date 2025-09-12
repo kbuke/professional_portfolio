@@ -28,14 +28,11 @@ class ProjectModel(db.Model, SerializerMixin):
     # relationship with paragraphs
     paragraphs = db.relationship("ProjectParagraphModel", back_populates = "project")
 
-    # relationship with tech (many-to-many)
-    # technologies = db.relationship("TechnologyModel", back_populates = "projects", secondary = "project_technology")
-
-    # relationship with project tech
-    # project_technologies = db.relationship("ProjectTechModel", back_populates = "project")
-
     # relationship with tech backend
     backend = db.relationship("TechnologyModel", back_populates = "project_back_end", secondary = "backend_tech")
+
+    # relationship with tech frontend
+    frontend = db.relationship("TechnologyModel", back_populates = "project_front_end", secondary = "front_end_tech")
 
     # SERIALIZATION
     # institutes
@@ -55,6 +52,8 @@ class ProjectModel(db.Model, SerializerMixin):
         "-project_technologies.technology",
 
         "-backend.project_back_end",
+
+        "-frontend.project_front_end",
     )
 
     # VALIDATIONS
