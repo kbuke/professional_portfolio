@@ -10,8 +10,6 @@ from resources.ProjectParagraphs import ProjectParagraphList, Paragraph
 
 from resources.Technology import TechnologyList
 
-from resources.ProjectTech import ProjectTechList
-
 from resources.User import UserList, User
 
 from resources.SocialMedia import SocialMediaLists, SocialMedia
@@ -26,6 +24,8 @@ from resources.Logout import Logout
 
 from resources.Email import EmailList
 
+from resources.BackendProject import BackEndProjectList
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -39,8 +39,6 @@ api.add_resource(ProjectParagraphList, "/paragrahps")
 api.add_resource(Paragraph, "/paragrahps/<int:id>")
 
 api.add_resource(TechnologyList, "/technologies")
-
-api.add_resource(ProjectTechList, "/projecttechnologies")
 
 api.add_resource(UserList, "/users")
 api.add_resource(User, "/users/<int:id>")
@@ -58,6 +56,8 @@ api.add_resource(Login, "/login")
 api.add_resource(Logout, "/logout")
 
 api.add_resource(EmailList, "/emails")
+
+api.add_resource(BackEndProjectList, "/backendtech")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)

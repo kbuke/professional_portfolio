@@ -11,16 +11,20 @@ class TechnologyModel(db.Model, SerializerMixin):
 
     # RELATIONS
     # a many-to-many relationship with projects
-    projects = db.relationship("ProjectModel", back_populates = "technologies", secondary = "project_technology")
+    # projects = db.relationship("ProjectModel", back_populates = "technologies", secondary = "project_technology")
 
     # associate relation with projectTech
-    project_technologies = db.relationship("ProjectTechModel", back_populates = "technology")
+    # project_technologies = db.relationship("ProjectTechModel", back_populates = "technology")
+
+    # relation with bacendTech
+    project_back_end = db.relationship("ProjectModel", back_populates = "backend", secondary = "backend_tech")
 
     # SERIALIZATION
     serialize_rules = (
-        "-projects.technologies",
-        "-project_technologies.technology",
-        "-project_technologies.project",
+        # "-projects.technologies",
+        # "-project_technologies.technology",
+        # "-project_technologies.project",
+        "-project_back_end.backend_tech",
     )
 
     # VALIDATIONS
