@@ -21,3 +21,20 @@ class BackEndProjectList(Resource):
             return {"message": "New back end tech added to project"}
         except ValueError as e:
             return{"error": [str(e)]}
+
+class BackEndProject(Resource):
+    def get(self, id):
+        back_end_project = BackEndTechModels.query.filter(BackEndTechModels.id == id).first()
+        if back_end_project:
+            return back_end_project.to_dict(), 201
+        else:
+            return {"error": f"Relation {id} not found"}, 404
+    
+    def delete(self, id):
+        back_end_project = BackEndTechModels.query.filter(BackEndTechModels.id == id).first()
+        if back_end_project:
+            db.session.delete(back_end_project)
+            db.session.commit()
+            return {"message": f"Relation {id} deleted."}, 201
+        else:
+            return {"error": f"Relation {id} not found"}, 404

@@ -24,7 +24,7 @@ from resources.Logout import Logout
 
 from resources.Email import EmailList
 
-from resources.BackendProject import BackEndProjectList
+from resources.BackendProject import BackEndProjectList, BackEndProject
 
 from resources.FrontEndProject import FrontEndProjectList
 
@@ -60,6 +60,7 @@ api.add_resource(Logout, "/logout")
 api.add_resource(EmailList, "/emails")
 
 api.add_resource(BackEndProjectList, "/backendtech")
+api.add_resource(BackEndProject, "/backendtech/<int:id>")
 
 api.add_resource(FrontEndProjectList, "/frontendtech")
 
