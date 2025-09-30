@@ -34,3 +34,20 @@ class Technology(Resource):
             return {"error": f"Tech {id} deleted."}, 200
         else:
             return {"error": f"Tech {id} not found"}, 404
+    
+    def patch(self, id):
+        data = request.get_json()
+
+        tech = TechnologyModel.query.filter(TechnologyModel.id == id).first()
+        if tech:
+            try:
+                for attr in data:
+                    setattr(tech, attr, data[attr])
+                db.session.add(tech)
+                db.session.commit()
+                return {"message": f"Tech {id} updated."}
+            except ValueError as e:
+                return {"error": [str(e)]}
+        else:
+            return{"error": f"Tech {id} not found"}, 404
+            
