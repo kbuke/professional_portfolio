@@ -1,7 +1,7 @@
 import { useFetch } from "./customHooks/useFetch";
 
 export function IntroSection(){
-    const userDetails = useFetch("http://127.0.0.1:5555/users")
+    const userDetails = useFetch("/api/users")
     console.log(userDetails)
     const user = userDetails?.data
     console.log(user)

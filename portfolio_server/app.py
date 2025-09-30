@@ -8,7 +8,7 @@ from resources.ProjectPoints import ProjectPointsList, ProjectPoint
 
 from resources.ProjectParagraphs import ProjectParagraphList, Paragraph
 
-from resources.Technology import TechnologyList
+from resources.Technology import TechnologyList, Technology
 
 from resources.User import UserList, User
 
@@ -41,6 +41,7 @@ api.add_resource(ProjectParagraphList, "/paragrahps")
 api.add_resource(Paragraph, "/paragrahps/<int:id>")
 
 api.add_resource(TechnologyList, "/technologies")
+api.add_resource(Technology, "/technologies/<int:id>")
 
 api.add_resource(UserList, "/users")
 api.add_resource(User, "/users/<int:id>")

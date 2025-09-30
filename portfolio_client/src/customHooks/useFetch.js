@@ -36,23 +36,31 @@ export function useFetch(url, options = {}){
         dispatch({type: ACTIONS.FETCH_START})
         const controller = new AbortController()
 
-        fetch(url, {signal: controller.signal, ...options})
-            .then(res => {
-                if(res.status === 200){
-                    return res.json()
-                }
-                return Promise.reject(res)
-            })
-            .then(data => {
-                dispatch({type: ACTIONS.FETCH_SUCCESS, payload: {data}})
-            })
-            // .then(setData)
-            .catch(e => {
-                if(e.name === "AbortError") return
+        const fetchData = () => {
+            fetch(url, {signal: controller.signal, ...options})
+                .then(res => {
+                    console.log(options)
+                    if(res.status === 200){
+                        return res.json()
+                    }
+                    return Promise.reject(res)
+                })
+                .then(data => {
+                    dispatch({type: ACTIONS.FETCH_SUCCESS, payload: {data}})
+                })
+                .catch(e => {
+                    if(e.name === "AbortError") return
 
-                dispatch({type: ACTIONS.FETCH_ERROR, payload: {error: e}})
-            })
+                    dispatch({type: ACTIONS.FETCH_ERROR, payload: {error: e}})
+                })
+        }
+
+        fetchData()
+
+        const interval = setInterval(fetchData, 5000)
+
         return () => {
+            clearInterval(interval)
             controller.abort()
         }
     }, [url])

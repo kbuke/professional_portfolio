@@ -24,3 +24,13 @@ class TechnologyList(Resource):
                 return {"message": "New tech created"}, 201
             except ValueError as e:
                 return {"error": [str(e)]}
+
+class Technology(Resource):
+    def delete(self, id):
+        tech = TechnologyModel.query.filter(TechnologyModel.id == id).first()
+        if tech:
+            db.session.delete(tech)
+            db.session.commit()
+            return {"error": f"Tech {id} deleted."}, 200
+        else:
+            return {"error": f"Tech {id} not found"}, 404
