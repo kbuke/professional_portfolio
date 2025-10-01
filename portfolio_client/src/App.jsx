@@ -1,14 +1,20 @@
-import { useFetch } from './customHooks/useFetch'
-import { IntroSection } from './IntroSection'
-import { TechnologySection } from './TechnologySection'
-import { ProjectSection } from './ProjectSection'
+import { useState } from "react"
+import { useFetch } from "./useFetch"
+import { TechStack } from "./TechStack"
+
 
 function App() {
+  const [allTech, setAllTech] = useState([])
+
+  // Fetch all tech
+  useFetch("/api/technologies", setAllTech)
+
   return (
     <>
-      <IntroSection />
-      <TechnologySection />
-      <ProjectSection />
+      <TechStack 
+        allTech={allTech}
+        setAllTech={setAllTech}
+      />
     </>
   )
 }

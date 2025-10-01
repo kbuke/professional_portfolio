@@ -21,7 +21,7 @@ class TechnologyList(Resource):
                 )
                 db.session.add(new_tech)
                 db.session.commit()
-                return {"message": "New tech created"}, 201
+                return new_tech.to_dict(), 201
             except ValueError as e:
                 return {"error": [str(e)]}
 
