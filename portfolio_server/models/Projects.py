@@ -57,6 +57,15 @@ class ProjectModel(db.Model, SerializerMixin):
     )
 
     # VALIDATIONS
+    # validate institute_id
+    @validates("institute_id")
+    def validate_institute(self, key, value):
+        try:
+            int(value)
+        except ValueError as e:
+            raise ValueError("id must be an integer")
+        return value
+
     # validate if there is a project image or a project video
     @validates("project_img", "project_video")
     def validate_project_media(self, key, value):

@@ -1,6 +1,5 @@
-export function usePost(e, url, information, prevState, setState){
-    console.log(prevState)
-    e.preventDefault()
+export function usePost(url, information, prevState, setState){
+    console.log(information)
     fetch(url, {
         method: "POST",
         headers: {

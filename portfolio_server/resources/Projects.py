@@ -14,12 +14,14 @@ class ProjectList(Resource):
     
     def post(self):
         json = request.get_json()
+        # breakpoint()
+        institute_id = int(json.get("instituteId"))
         
         if json:
             try:
                 new_project = ProjectModel(
-                    institute_id = json.get("instituteId"),
-                    project_name = json.get("projectModel"),
+                    institute_id = institute_id,
+                    project_name = json.get("projectName"),
                     project_img = json.get("projectImg"),
                     project_video = json.get("projectVideo"),
                     project_start_date = json.get("projectStartDate"),
@@ -28,7 +30,7 @@ class ProjectList(Resource):
                 )
                 db.session.add(new_project)
                 db.session.commit()
-                return {"message": "New Project Created"}, 201
+                return new_project.to_dict(), 201
             
             except IntegrityError as e:
                 db.session.rollback()
