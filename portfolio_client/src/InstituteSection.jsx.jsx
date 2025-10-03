@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch";
+import { AddInstitute } from "./AddInstitute";
 
-export function InstituteSection(){
+export function InstituteSection({
+    dateInput, 
+    inputChange
+}){
     const [allInstitutes, setAllInstitutes] = useState([])
 
     useFetch("/api/institutes", setAllInstitutes)
@@ -46,6 +50,12 @@ export function InstituteSection(){
         <div>
             <h1>Institutes</h1>
             {renderInstitutes}
+            <AddInstitute 
+                allInstitutes={allInstitutes}
+                setAllInstitutes={setAllInstitutes}
+                inputChange={inputChange}
+                dateInput={dateInput}
+            />
         </div>
     )
 }

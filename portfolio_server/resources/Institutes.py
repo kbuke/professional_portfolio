@@ -25,7 +25,7 @@ class InstituteList(Resource):
                 )
                 db.session.add(new_institute)
                 db.session.commit()
-                return {"message": "New Institute created."}, 201
+                return new_institute.to_dict(), 201
             except ValueError as e:
                 return {"error": [str(e)]}
 

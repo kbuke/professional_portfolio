@@ -45,7 +45,10 @@ function App() {
         dateInput={dateInput}
       />
 
-      <InstituteSection />
+      <InstituteSection 
+        dateInput={dateInput}
+        inputChange={inputChange}
+      />
     </>
   )
 }
