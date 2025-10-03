@@ -32,7 +32,7 @@ class TechnologyModel(db.Model, SerializerMixin):
         
         if isinstance(value, str):
             existing = TechnologyModel.query.filter(TechnologyModel.tech_name == value).first()
-            if existing and value.id != existing.id:
+            if existing and self.id != existing.id:
                 raise ValueError(f"{value} is already regustered on this app.")
         
         return value
