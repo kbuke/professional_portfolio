@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { AddTech } from "./AddTech"
 import { useDelete } from "./useDelete"
 import { useFetch } from "./useFetch"
+import { DeleteTech } from "./DeleteTech"
 
 export function TechStack({
     inputChange
@@ -9,6 +10,7 @@ export function TechStack({
     const [allTech, setAllTech] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
+    const [deleteTech, setDeleteTech] = useState(null)
 
     useFetch("/api/technologies", setAllTech)
 
@@ -18,6 +20,22 @@ export function TechStack({
             <div key={tech.id}>
                 <img src={tech.tech_img}/>
                 <h2>{tech.tech_name}</h2>
+
+                <button
+                    onClick={() => setDeleteTech(tech.id)}
+                >
+                    Delete {tech.tech_name}
+                </button>
+
+                {deleteTech ?
+                    <DeleteTech 
+                        techId={parseInt(tech.id, 10)}
+                        setAllTech={setAllTech}
+                        setDeleteTech={setDeleteTech}
+                    />
+                    :
+                    null
+                }
             </div>
         )
     })

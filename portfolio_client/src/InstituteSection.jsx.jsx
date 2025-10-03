@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch";
 import { AddInstitute } from "./AddInstitute";
+import { DeleteInstitute } from "./DeleteInstitute";
 
 export function InstituteSection({
     dateInput, 
     inputChange
 }){
     const [allInstitutes, setAllInstitutes] = useState([])
+    const [deleteInstitute, setDeleteInstitute] = useState(null)
 
     useFetch("/api/institutes", setAllInstitutes)
     console.log(allInstitutes)
@@ -41,6 +43,22 @@ export function InstituteSection({
                     </p>
 
                     <p>{institute.institute_city}, {institute.institute_country}</p>
+
+                    <button
+                        onClick={() => setDeleteInstitute(institute.id)}
+                    >
+                        Delete Institute?
+                    </button>
+
+                    {deleteInstitute ?
+                        <DeleteInstitute 
+                            instituteId = {deleteInstitute}
+                            setAllInstitutes={setAllInstitutes}
+                            setDeleteInstitute={setDeleteInstitute}
+                        />
+                        :
+                        null
+                    }
                 </div>
             </div>
         )
