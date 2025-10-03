@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { AddTech } from "./AddTech"
-import { useDelete } from "./useDelete"
 import { useFetch } from "./useFetch"
 import { DeleteTech } from "./DeleteTech"
+import { PatchTech } from "./PatchTech"
 
 export function TechStack({
     inputChange
@@ -11,8 +11,12 @@ export function TechStack({
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [deleteTech, setDeleteTech] = useState(null)
+    const [editInstance, setEditInstance] = useState(null)
+
 
     useFetch("/api/technologies", setAllTech)
+
+    console.log(editInstance)
 
     //Render all Tech
     const renderTech = allTech?.map(tech => {
@@ -27,11 +31,27 @@ export function TechStack({
                     Delete {tech.tech_name}
                 </button>
 
+                <button
+                    onClick={() => setEditInstance(tech)}
+                >
+                    Edit {tech.tech_name}
+                </button>
+
                 {deleteTech ?
                     <DeleteTech 
                         techId={parseInt(tech.id, 10)}
                         setAllTech={setAllTech}
                         setDeleteTech={setDeleteTech}
+                    />
+                    :
+                    null
+                }
+
+                {editInstance ?
+                    <PatchTech 
+                        editInstance={editInstance}
+                        setEditInstance={setEditInstance}
+                        setAllTech={setAllTech}
                     />
                     :
                     null

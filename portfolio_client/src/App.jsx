@@ -13,7 +13,6 @@ function App() {
       <input 
         type={inputType}
         placeholder={placeholder}
-        // onChange={e => setState(e.target.value)}
         {...register}
       />
     )

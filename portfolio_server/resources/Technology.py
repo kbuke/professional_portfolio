@@ -45,7 +45,7 @@ class Technology(Resource):
                     setattr(tech, attr, data[attr])
                 db.session.add(tech)
                 db.session.commit()
-                return {"message": f"Tech {id} updated."}
+                return make_response(tech.to_dict(), 202)
             except ValueError as e:
                 return {"error": [str(e)]}
         else:
