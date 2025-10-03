@@ -7,7 +7,6 @@ export function useFetch(url, setState){
         fetch(url, {signal: controller.signal})
         .then(r => {
             if(r.ok){
-                console.log("hi")
                 return r.json()
             }
             throw r

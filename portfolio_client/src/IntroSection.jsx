@@ -9,7 +9,6 @@ export function IntroSection(){
     useFetch("/api/users", setAllUsers)
     
     const userInfo = allUsers[0]
-    console.log(userInfo)
     const userImg = userInfo?.user_img 
     const userCv = userInfo?.user_cv
     const userEmail = userInfo?.email 

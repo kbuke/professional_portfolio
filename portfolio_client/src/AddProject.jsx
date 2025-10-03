@@ -12,7 +12,6 @@ export function AddProject({
 }){
     const [allInstitutes, setAllInstitutes] = useState([]) 
     useFetch("/api/institutes", setAllInstitutes)
-    console.log(allInstitutes)
 
     const {
         register,

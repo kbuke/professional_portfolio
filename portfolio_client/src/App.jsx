@@ -2,6 +2,7 @@ import { TechStack } from "./TechStack"
 import { Projects } from "./Projects"
 import { IntroSection } from "./IntroSection"
 import { QualificationSection } from "./QualificationSection"
+import { InstituteSection } from "./InstituteSection.jsx"
 
 
 function App() {
@@ -34,13 +35,17 @@ function App() {
   return (
     <>
       <IntroSection />
+
       <TechStack 
         inputChange={inputChange}
       /> 
+
       <Projects 
         inputChange={inputChange}
         dateInput={dateInput}
       />
+
+      <InstituteSection />
     </>
   )
 }

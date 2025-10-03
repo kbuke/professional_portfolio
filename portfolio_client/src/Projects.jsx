@@ -8,7 +8,6 @@ export function Projects({inputChange, dateInput}){
     const [isError, setIsError] = useState(false)
 
     useFetch("/api/projects", setAllProjects)
-    console.log(allProjects)
 
     const renderTech = (technologyType, typeText) => {
         return(

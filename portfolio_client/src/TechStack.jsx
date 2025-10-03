@@ -12,11 +12,6 @@ export function TechStack({
 
     useFetch("/api/technologies", setAllTech)
 
-    console.log(allTech)
-    
-
-
-
     //Render all Tech
     const renderTech = allTech?.map(tech => {
         return(
