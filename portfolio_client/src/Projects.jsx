@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch";
 import { AddProject } from "./AddProject";
+import { DeleteProject } from "./DeleteProject";
 
 export function Projects({inputChange, dateInput}){
     const [allProjects, setAllProjects] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
+    const [deleteProject, setDeleteProject] = useState(null)
 
     useFetch("/api/projects", setAllProjects)
 
@@ -26,7 +28,6 @@ export function Projects({inputChange, dateInput}){
                 null
         )}
 
-
     const renderProjects = allProjects?.map((project, index) => {
         const projectBackendTech = project?.backend
         const projectFrontendTech = project?.frontend 
@@ -40,6 +41,8 @@ export function Projects({inputChange, dateInput}){
         const projectImg = project?.project_img
         const projectStartDate = project?.project_start_date
         const projectEndDate = project?.project_end_date
+        const projectId = parseInt(project?.id, 10)
+
         return(
             <div key={index}>
 
@@ -84,6 +87,20 @@ export function Projects({inputChange, dateInput}){
                         </ul>
 
                         <button>More Information</button>
+
+                        <button onClick={() => setDeleteProject(project.id)}>
+                            Delete Project
+                        </button>
+
+                        {deleteProject ?
+                            <DeleteProject 
+                                projectId = {projectId}
+                                setAllProjects = {setAllProjects}
+                                setDeleteProject = {setDeleteProject}
+                            />
+                            :
+                            null
+                        }
                     </div>
 
                     {renderTech(projectFrontendTech, "Frontend:")}

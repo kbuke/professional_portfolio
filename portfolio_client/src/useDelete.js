@@ -1,4 +1,4 @@
-export function useDelete(e, url, setState, instanceId){
+export function useDelete(e, url, setState, instanceId, setDelete){
     e.preventDefault()
     fetch(url, {
         method: "DELETE"
@@ -8,4 +8,5 @@ export function useDelete(e, url, setState, instanceId){
                 setState(states => states.filter(state => state.id !== instanceId))
             }
         })
+        .then(setDelete(null))
 }
