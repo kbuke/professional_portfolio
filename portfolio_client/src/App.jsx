@@ -8,12 +8,13 @@ import { InstituteSection } from "./InstituteSection.jsx"
 function App() {
 
   // Function for input types of text, password, email etc
-  const inputChange = (inputType, placeholder, register) => {
+  const inputChange = (inputType, placeholder, register, defaultValue) => {
     return(
       <input 
         type={inputType}
         placeholder={placeholder}
         {...register}
+        defaultValue={defaultValue || ""}
       />
     )
   }

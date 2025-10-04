@@ -1,5 +1,7 @@
-export function usePatch(e, body, url, instanceId, editInstance, setEditInstance, setAllState){
-    e.preventDefault()
+export function usePatch(
+    // e, 
+    body, url, instanceId, setEditInstance, setAllState){
+    // e.preventDefault()
 
     const editBody = body
 

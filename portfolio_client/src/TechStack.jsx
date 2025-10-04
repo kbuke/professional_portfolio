@@ -11,12 +11,10 @@ export function TechStack({
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [deleteTech, setDeleteTech] = useState(null)
-    const [editInstance, setEditInstance] = useState(null)
+    const [editTech, setEditTech] = useState(null)
 
 
     useFetch("/api/technologies", setAllTech)
-
-    console.log(editInstance)
 
     //Render all Tech
     const renderTech = allTech?.map(tech => {
@@ -32,7 +30,7 @@ export function TechStack({
                 </button>
 
                 <button
-                    onClick={() => setEditInstance(tech)}
+                    onClick={() => setEditTech(tech)}
                 >
                     Edit {tech.tech_name}
                 </button>
@@ -47,10 +45,10 @@ export function TechStack({
                     null
                 }
 
-                {editInstance ?
+                {editTech && editTech.id === tech.id?
                     <PatchTech 
-                        editInstance={editInstance}
-                        setEditInstance={setEditInstance}
+                        editInstance={editTech}
+                        setEditInstance={setEditTech}
                         setAllTech={setAllTech}
                     />
                     :

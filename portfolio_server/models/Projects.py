@@ -84,8 +84,7 @@ class ProjectModel(db.Model, SerializerMixin):
         if value is None:
             if key == "project_start_date":
                 raise ValueError("Must incluse start date")
-            else:
-                return None
+            return None
             
         if isinstance(value, str):
             try:

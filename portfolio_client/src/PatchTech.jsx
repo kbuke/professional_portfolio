@@ -17,7 +17,7 @@ export function PatchTech({
     const handleEdit = (e) => {
         usePatch(
             e, editBody, `/api/technologies/${editInstance.id}`,
-            parseInt(editInstance.id, 10), editInstance, setEditInstance, setAllTech
+            parseInt(editInstance.id, 10), setEditInstance, setAllTech
         )
     }
 

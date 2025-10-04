@@ -2,14 +2,21 @@ import { useState } from "react";
 import { useFetch } from "./useFetch";
 import { AddProject } from "./AddProject";
 import { DeleteProject } from "./DeleteProject";
+import { PatchProject } from "./PatchProject";
 
 export function Projects({inputChange, dateInput}){
     const [allProjects, setAllProjects] = useState([])
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [deleteProject, setDeleteProject] = useState(null)
+    const [editProject, setEditProject] = useState(null)
 
     useFetch("/api/projects", setAllProjects)
+
+    const patchProjectRequest = (project) => {
+        setEditProject(project)
+    }
+    console.log(editProject)
 
     const renderTech = (technologyType, typeText) => {
         return(
@@ -92,11 +99,30 @@ export function Projects({inputChange, dateInput}){
                             Delete Project
                         </button>
 
+                        <button
+                            onClick={() => patchProjectRequest(project)}
+                        >
+                            Edit Project
+                        </button>
+
                         {deleteProject ?
                             <DeleteProject 
                                 projectId = {projectId}
                                 setAllProjects = {setAllProjects}
                                 setDeleteProject = {setDeleteProject}
+                            />
+                            :
+                            null
+                        }
+
+                        {editProject && editProject.id === project.id?
+                            <PatchProject 
+                                {...editProject}
+                                editProject={editProject}
+                                setEditProject={setEditProject}
+                                inputChange = {inputChange}
+                                dateInput = {dateInput}
+                                setAllProjects={setAllProjects}
                             />
                             :
                             null

@@ -54,13 +54,16 @@ class Project(Resource):
 
         project = ProjectModel.query.filter(ProjectModel.id == id).first()
 
+        breakpoint()
+        
         if project:
             try:
                 for attr in data:
+                    print(f"Setting {attr} = {data[attr]}")
                     setattr(project, attr, data[attr])
                 db.session.add(project)
                 db.session.commit()
-                return {"message": f"Project {id} updated"}, 201
+                return make_response(project.to_dict(), 202)
             except ValueError as e:
                 return {"error": [str(e)]}
         else:
