@@ -1,6 +1,6 @@
 import { useEffect, useReducer } from "react";
 
-export function useFetch(url, setState, dependancies=null){
+export function useFetch(url, setState, dependancies=[]){
     useEffect(() => {
         const controller = new AbortController()
 
@@ -20,6 +20,6 @@ export function useFetch(url, setState, dependancies=null){
         return () => {
             controller.abort()
         }
-    }, [url, dependancies])
+    }, [url, ...dependancies])
 }
 

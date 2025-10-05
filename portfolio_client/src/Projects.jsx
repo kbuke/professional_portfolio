@@ -4,6 +4,7 @@ import { AddProject } from "./AddProject";
 import { DeleteProject } from "./DeleteProject";
 import { PatchProject } from "./PatchProject";
 import { AddProjectPoint } from "./AddProjectPoint";
+import { AddProjectTech } from "./AddProjectTech";
 
 export function Projects({inputChange, dateInput}){
     const [allProjects, setAllProjects] = useState([])
@@ -13,10 +14,13 @@ export function Projects({inputChange, dateInput}){
     const [editProject, setEditProject] = useState(null)
     const [addProjectPoint, setAddProjectPoint] = useState(null)
     const [allPoints, setAllPoints] = useState([])
+    const [addProjectTech, setAddProjectTech] = useState(null)
+    const [allFrontEnd, setAllFrontEnd] = useState([])
+    const [allBackEnd, setAllBackEnd] = useState([])
     
     useFetch("/api/points", setAllPoints)
 
-    useFetch("/api/projects", setAllProjects, allPoints.length)
+    useFetch("/api/projects", setAllProjects, [allPoints.length, allFrontEnd.length, allBackEnd.length])
 
     const patchProjectRequest = (project) => {
         setEditProject(project)
@@ -110,6 +114,26 @@ export function Projects({inputChange, dateInput}){
                                 inputChange={inputChange}
                                 allPoints={allPoints}
                                 setAllPoints={setAllPoints}
+                            />
+                            :
+                            null
+                        }
+
+                        <button
+                            onClick={() => setAddProjectTech(projectId)}
+                        >
+                            Add Tech Stack to Project
+                        </button>
+
+                        {addProjectTech && addProjectTech === projectId ?
+                            <AddProjectTech 
+                                addProjectTech={addProjectTech}
+                                setAddProjectTech={setAddProjectTech}
+                                allFrontEnd={allFrontEnd}
+                                setAllFrontEnd={setAllFrontEnd}
+                                allBackEnd={allBackEnd}
+                                setAllBackEnd={setAllBackEnd}
+                                {...project}
                             />
                             :
                             null
