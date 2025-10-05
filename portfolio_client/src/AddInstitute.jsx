@@ -21,9 +21,6 @@ export function AddInstitute({
 
     //Use this for validation to ensure end-date doesnt come before.
     const instituteStartDate = watch("instituteStartDate") // WATCH let's us subscribe to the value of a field 
-    console.log(instituteStartDate)
-
-    
 
     return(
         <form

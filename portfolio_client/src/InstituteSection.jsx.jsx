@@ -11,7 +11,6 @@ export function InstituteSection({
     const [deleteInstitute, setDeleteInstitute] = useState(null)
 
     useFetch("/api/institutes", setAllInstitutes)
-    console.log(allInstitutes)
 
     const renderDates = (dateTypeText, dateValue) => {
         return(
@@ -25,9 +24,9 @@ export function InstituteSection({
     }
 
     // Render Institues
-    const renderInstitutes = allInstitutes.map(institute => {
+    const renderInstitutes = allInstitutes.map((institute, index) => {
         return(
-            <div>
+            <div key={index}>
                 <img src={institute.institute_img}/>
 
                 <div>

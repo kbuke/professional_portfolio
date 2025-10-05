@@ -11,7 +11,10 @@ export function PatchProject({
     editProject, setEditProject, inputChange, dateInput, setAllProjects
 }){
     const [allInstitutes, setAllInstitutes] = useState([])
+    const [projectFinished, setProjectFinished] = useState(project_end_date? true : false)
     useFetch("/api/institutes", setAllInstitutes)
+
+    console.log("This porject has been finished", projectFinished)
 
     const {
         register,
@@ -25,20 +28,19 @@ export function PatchProject({
             projectVideo: project_video,
             projectIntro: project_intro,
             projectStart: project_start_date,
-            projectEnd: project_end_date,
+            projectEnd: !projectFinished? project_end_date : null,
             instituteId: parseInt(institute_id, 10)
         }
     })
     const instituteId = watch("instituteId")
     console.log(`Selected institite ${instituteId}`)
-    console.log(allInstitutes)
 
     const chosenInstitute = allInstitutes?.filter(institute => institute.id === Number(instituteId))
-    console.log(chosenInstitute)
 
     const instituteStart = chosenInstitute?.[0]?.institute_start_date
     const instituteEnd = chosenInstitute?.[0]?.institute_end_date
-    console.log(instituteStart)
+
+    const projectStart = watch("projectStart")
 
     const editBody = {
         project_name: watch("projectName"),
@@ -67,6 +69,8 @@ export function PatchProject({
             {inputChange("text", "Please enter project video", {...register("projectVideo")})}
             {inputChange("text", "Please enter project intro", {...register("projectIntro")})}
 
+    
+
             {dateInput("Project Start Date:", {...register("projectStart", {
                 required: "Please enter the project start date",
                 validate: value => {
@@ -82,7 +86,34 @@ export function PatchProject({
             })})}
             <FormGroup errorMessage={errors?.projectStart?.message}/>
 
-            {dateInput("Project End Date:", {...register("projectEnd")})}
+            <>
+                <p>Project Finished?</p>
+                <input 
+                    type="checkbox"
+                    checked={projectFinished}
+                    onChange={() => setProjectFinished(!projectFinished)}
+                />
+            </>
+
+            {projectFinished ?
+                <div>
+                    {dateInput("Project End Date:", {...register("projectEnd", {
+                        validate: value => {
+                            if(projectFinished){
+                                if (instituteEnd && projectStart && (value < projectStart) || value > instituteEnd){
+                                    return(`Value must be between ${projectStart} and ${instituteEnd}`)
+                                } else if (projectStart && !instituteEnd && value < projectStart){
+                                    return (`Value must be after ${projectStart}`)
+                                }
+                            }
+                        }
+                    })})}
+                    <FormGroup errorMessage={errors?.projectEnd?.message}/>
+                </div>
+                :
+                null
+            }
+
             <select
                 {...register("instituteId")}
             >
@@ -101,129 +132,4 @@ export function PatchProject({
             <button>Submit</button>
         </form>
     )
-
-    
-    // console.log(inputChange)
-    // const [projectName, setProjectName] = useState(project_name)
-    // const [institution, setInstitution] = useState(institute.institute_name)
-    // const [instituteId, setInstituteId] = useState(parseInt(institute_id, 10))
-    // const [projectStart, setProjectStart] = useState(project_start_date)
-    // const [projectEnd, setProjectEnd] = useState(project_end_date)
-    // const [projectImg, setProjectImg] = useState(project_img)
-    // const [projectIntro, setProjectIntro] = useState(project_intro)
-    // const [projectVideo, setProjectVideo] = useState(project_video)
-    // const [institutes, setInstitutes] = useState([])
-
-    // useFetch("/api/institutes", setInstitutes)
-    // // Create drop box for institutes
-    // const instituteDropDown = () => {
-    //     return (
-    //         <select
-    //             onChange={e => setInstituteId(parseInt(e.target.value, 10))}
-    //         >
-    //             {institutes.map((options, index) => {
-    //                 return(
-    //                     <option
-    //                         value={options.id}
-    //                         key={index}
-    //                     >
-    //                         {options.institute_name}
-    //                     </option>
-    //                 )
-    //             })}
-    //         </select>
-    //     )
-    // }
-
-    // console.log(setEditProject)
-    // console.log(setAllProjects)
-
-    // const editInput = (inputType, placeholder, value, setState) => {
-    //     return(
-    //         <input 
-    //             type={inputType}
-    //             placeholder={placeholder}
-    //             value={value? value : ""}
-    //             onChange={e => setState(e.target.value)}
-    //         />
-    //     )
-    // }
-
-    // const editBody = {
-    //     project_name: projectName,
-    //     project_img: projectImg,
-    //     project_video: projectVideo,
-    //     project_start_date: projectStart,
-    //     project_end_date: projectEnd || null,
-    //     project_intro: projectIntro,
-    //     institute_id: parseInt(instituteId, 10)
-    // }
-
-    // const handleEdit = e => {
-    //     usePatch(
-    //         e, editBody, `/api/projects/${id}`,
-    //         parseInt(id, 10), setEditProject, setAllProjects
-    //     )
-    // }
-
-    // return(
-    //     <div>
-    //         <h1>Edit {project_name}</h1>
-    //         {editInput(
-    //             "text", 
-    //             "Please enter project name",
-    //             projectName,
-    //             setProjectName
-    //         )}
-
-    //         {editInput(
-    //             "text",
-    //             "Please enter project image",
-    //             projectImg,
-    //             setProjectImg
-    //         )}
-
-    //         {editInput(
-    //             "text",
-    //             "Please enter project video",
-    //             projectVideo,
-    //             setProjectVideo
-    //         )}
-
-    //         {editInput(
-    //             "text",
-    //             "Please enter project introduction",
-    //             projectIntro, 
-    //             setProjectIntro
-    //         )}
-
-    //         {instituteDropDown()}
-
-    //         {editInput(
-    //             "date",
-    //             "Start date",
-    //             projectStart,
-    //             setProjectStart
-    //         )}
-
-    //         {editInput(
-    //             "date",
-    //             "End date",
-    //             projectEnd,
-    //             setProjectEnd
-    //         )}
-
-    //         <button
-    //             onClick={e => handleEdit(e)}
-    //         >
-    //             Make Changes
-    //         </button>
-
-    //         <button
-    //             onClick={() => setEditProject(null)}
-    //         >
-    //             Cancel
-    //         </button>
-    //     </div>
-    // )
 }

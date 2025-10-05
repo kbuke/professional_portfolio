@@ -3,6 +3,7 @@ import { useFetch } from "./useFetch";
 import { AddProject } from "./AddProject";
 import { DeleteProject } from "./DeleteProject";
 import { PatchProject } from "./PatchProject";
+import { AddProjectPoint } from "./AddProjectPoint";
 
 export function Projects({inputChange, dateInput}){
     const [allProjects, setAllProjects] = useState([])
@@ -10,13 +11,16 @@ export function Projects({inputChange, dateInput}){
     const [isError, setIsError] = useState(false)
     const [deleteProject, setDeleteProject] = useState(null)
     const [editProject, setEditProject] = useState(null)
+    const [addProjectPoint, setAddProjectPoint] = useState(null)
+    const [allPoints, setAllPoints] = useState([])
+    
+    useFetch("/api/points", setAllPoints)
 
-    useFetch("/api/projects", setAllProjects)
+    useFetch("/api/projects", setAllProjects, allPoints.length)
 
     const patchProjectRequest = (project) => {
         setEditProject(project)
     }
-    console.log(editProject)
 
     const renderTech = (technologyType, typeText) => {
         return(
@@ -92,6 +96,24 @@ export function Projects({inputChange, dateInput}){
                                 )
                             })}
                         </ul>
+
+                        <button
+                            onClick={() => setAddProjectPoint(projectId)}
+                        >
+                            Add Point
+                        </button>
+
+                        {addProjectPoint && addProjectPoint === projectId?
+                            <AddProjectPoint 
+                                addProjectPoint={addProjectPoint}
+                                setAddProjectPoint={setAddProjectPoint}
+                                inputChange={inputChange}
+                                allPoints={allPoints}
+                                setAllPoints={setAllPoints}
+                            />
+                            :
+                            null
+                        }
 
                         <button>More Information</button>
 

@@ -12,8 +12,7 @@ export function TechStack({
     const [isError, setIsError] = useState(false)
     const [deleteTech, setDeleteTech] = useState(null)
     const [editTech, setEditTech] = useState(null)
-
-
+    
     useFetch("/api/technologies", setAllTech)
 
     //Render all Tech
@@ -47,9 +46,12 @@ export function TechStack({
 
                 {editTech && editTech.id === tech.id?
                     <PatchTech 
+                        {...editTech}
                         editInstance={editTech}
                         setEditInstance={setEditTech}
                         setAllTech={setAllTech}
+                        inputChange={inputChange}
+                        allTech={allTech}
                     />
                     :
                     null

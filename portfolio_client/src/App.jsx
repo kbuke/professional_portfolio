@@ -5,6 +5,7 @@ import { QualificationSection } from "./QualificationSection"
 import { InstituteSection } from "./InstituteSection.jsx"
 
 
+
 function App() {
 
   // Function for input types of text, password, email etc
@@ -31,6 +32,8 @@ function App() {
       </div>
     )
   }
+
+
 
   return (
     <>

@@ -1,56 +1,73 @@
 import { useState } from "react"
 import { usePatch } from "./usePatch"
+import { useForm } from "react-hook-form"
+import { FormGroup } from "./FormGroup"
 
 export function PatchTech({
+    id, 
+    tech_name,
+    tech_img,
     editInstance,
     setEditInstance,
-    setAllTech
+    setAllTech,
+    inputChange,
+    allTech
 }){
-    const [techName, setTechName] = useState(editInstance?.tech_name)
-    const [techImg, setTechImg] = useState(editInstance?.tech_img)
+    
+    const {
+        register,
+        handleSubmit,
+        formState: {errors},
+        watch
+    } = useForm({
+        defaultValues:{
+            techName: tech_name,
+            techImg: tech_img
+        }
+    })
 
     const editBody = {
-        tech_name: techName,
-        tech_img: techImg
+        tech_name: watch("techName"),
+        tech_img: watch("techImg")
     }
 
-    const handleEdit = (e) => {
+    const handleTechEdit = () => {
         usePatch(
-            e, editBody, `/api/technologies/${editInstance.id}`,
-            parseInt(editInstance.id, 10), setEditInstance, setAllTech
+            editBody, `/api/technologies/${id}`,
+            id, setEditInstance, setAllTech
         )
     }
 
     return(
-        <div>
-            <h1>Edit Tech</h1>
-            <input 
-                type="text"
-                placeholder="Edit tech name"
-                value={techName}
-                onChange={e => setTechName(e.target.value)}
-            />
+        <form
+            onSubmit={handleSubmit(handleTechEdit)}
+        >
+            <h1>Edit {tech_name}</h1>
+            {inputChange("text", "Please enter tech name", {...register("techName",{
+                required: "Please enter a tech name",
+                validate: value => {
+                    const exists = allTech.some(
+                        tech => tech.tech_name.toLowerCase() === value.toLowerCase()
+                    )
+                    return !exists || "This technology is already registered on the app."
+                }
+            })})}
+            <FormGroup errorMessage={errors?.techName?.message}/>
+            
+            {inputChange("tect", "Please enter tech image", {...register("techImg", {
+                required: "Please enter a tech image link"
+            })})}
+            <FormGroup errorMessage={errors?.techImg?.message} />
 
-            <input 
-                type="text"
-                placeholder="Edit tech img"
-                value={techImg}
-                onChange={e => setTechImg(e.target.value)}
-            />
+            <button>
+                Submit
+            </button>
 
-            <div>
-                <button
-                    onClick={e => handleEdit(e)}
-                >
-                    Make Edits
-                </button>
-
-                <button
-                    onClick={() => setEditInstance(null)}
-                >
-                    Cancel
-                </button>
-            </div>
-        </div>
+            <button
+                onClick={() => setEditInstance(null)}
+            >
+                Cancel
+            </button>
+        </form>
     )
 }
