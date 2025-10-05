@@ -34,7 +34,7 @@ export function TechStack({
                     Edit {tech.tech_name}
                 </button>
 
-                {deleteTech ?
+                {deleteTech && deleteTech === tech.id?
                     <DeleteTech 
                         techId={parseInt(tech.id, 10)}
                         setAllTech={setAllTech}

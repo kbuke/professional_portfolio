@@ -37,7 +37,9 @@ function App() {
 
   return (
     <>
-      <IntroSection />
+      <IntroSection 
+        inputChange={inputChange}
+      />
 
       <TechStack 
         inputChange={inputChange}

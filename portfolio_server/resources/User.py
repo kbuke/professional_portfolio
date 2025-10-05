@@ -48,7 +48,7 @@ class User(Resource):
                     setattr(user, attr, data[attr])
                 db.session.add(user)
                 db.session.commit()
-                return {"messae": f"Successfully updated user {id}"}
+                return make_response(user.to_dict(), 202)
             except ValueError as e:
                 return {"error": [str(e)]}
         else:

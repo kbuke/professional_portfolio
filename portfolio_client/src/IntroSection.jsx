@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch";
+import { PatchUserInfo } from "./PatchUserInfo";
 
 
-export function IntroSection(){
+export function IntroSection({
+    inputChange
+}){
     const [allUsers, setAllUsers] = useState([])
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [editUser, setEditUser] = useState(false)
+
     useFetch("/api/users", setAllUsers)
     
     const userInfo = allUsers[0]
@@ -32,6 +37,24 @@ export function IntroSection(){
                     <button>CV</button>
                     <button>Email</button>
                 </div>
+
+                <button
+                    onClick={() => setEditUser(userInfo)}
+                >
+                    Edit User Info
+                </button>
+
+                {editUser ?
+                    <PatchUserInfo
+                        inputChange={inputChange} 
+                        allUsers={allUsers}
+                        setAllUsers={setAllUsers}
+                        setEditUser={setEditUser}
+                        {...editUser}
+                    />
+                    :
+                    null
+                }
 
             </div>
     )
