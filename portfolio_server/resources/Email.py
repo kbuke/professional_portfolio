@@ -9,9 +9,13 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-password = os.getenv("GMAIL_PASSWORD")
+# password = os.getenv("GMAIL_PASSWORD")
 
 class EmailList(Resource):
+    def get(self):
+        email = [email.to_dict() for email in EmailModel.query.all()]
+        return email
+    
     def post(self):
         json = request.get_json()
         
@@ -20,6 +24,11 @@ class EmailList(Resource):
             return {"error": "Recipient not found"}, 404
         
         recipient_email = recipient.email
+
+        if recipient_email == "kbuke1301@gmail.com":
+            password = os.getenv("NEW_GMAIL_AC_PW")
+        else:
+            password = os.getenv("GMAIL_PASSWORD")
 
         try:
             new_email = EmailModel(

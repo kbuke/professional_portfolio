@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useFetch } from "./useFetch";
 import { PatchUserInfo } from "./PatchUserInfo";
+import { AddEmail } from "./AddEmail";
 
 
 export function IntroSection({
@@ -10,6 +11,7 @@ export function IntroSection({
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [editUser, setEditUser] = useState(false)
+    const [sendEmail, setSendEmail] = useState(false)
 
     useFetch("/api/users", setAllUsers)
     
@@ -35,7 +37,12 @@ export function IntroSection({
                     <h1>{userName}'s Portfolio</h1>
                     <h3>{userIntro}</h3>
                     <button>CV</button>
-                    <button>Email</button>
+
+                    <button
+                        onClick={() => setSendEmail(true)}
+                    >
+                        Email
+                    </button>
                 </div>
 
                 <button
@@ -51,6 +58,15 @@ export function IntroSection({
                         setAllUsers={setAllUsers}
                         setEditUser={setEditUser}
                         {...editUser}
+                    />
+                    :
+                    null
+                }
+
+                {sendEmail?
+                    <AddEmail 
+                        inputChange={inputChange}
+                        setSendEmail={setSendEmail}
                     />
                     :
                     null
