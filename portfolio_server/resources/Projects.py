@@ -53,8 +53,6 @@ class Project(Resource):
         data = request.get_json()
 
         project = ProjectModel.query.filter(ProjectModel.id == id).first()
-
-        breakpoint()
         
         if project:
             try:

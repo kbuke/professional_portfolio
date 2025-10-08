@@ -28,7 +28,7 @@ from resources.BackendProject import BackEndProjectList, BackEndProject
 
 from resources.FrontEndProject import FrontEndProjectList
 
-from resources.Api import ApiList
+from resources.Api import ApiList, Api
 
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
@@ -68,6 +68,7 @@ api.add_resource(BackEndProject, "/backendtech/<int:id>")
 api.add_resource(FrontEndProjectList, "/frontendtech")
 
 api.add_resource(ApiList, "/apis")
+api.add_resource(Api, "/apis/<int:id>")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)
