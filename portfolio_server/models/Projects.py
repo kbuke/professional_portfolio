@@ -34,6 +34,9 @@ class ProjectModel(db.Model, SerializerMixin):
     # relationship with tech frontend
     frontend = db.relationship("TechnologyModel", back_populates = "project_front_end", secondary = "front_end_tech")
 
+    # relationship with apis
+    apis = db.relationship("ApiModel", back_populates = "projects", secondary = "api_projects")
+
     # SERIALIZATION
     # institutes
     def serialize_institutes(*attributes):
@@ -54,6 +57,8 @@ class ProjectModel(db.Model, SerializerMixin):
         "-backend.project_back_end",
 
         "-frontend.project_front_end",
+
+        "-apis.projects",
     )
 
     # VALIDATIONS

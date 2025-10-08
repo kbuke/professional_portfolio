@@ -30,6 +30,8 @@ from resources.FrontEndProject import FrontEndProjectList
 
 from resources.Api import ApiList, Api
 
+from resources.ApiProjects import ApiProjectList
+
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
 
@@ -69,6 +71,8 @@ api.add_resource(FrontEndProjectList, "/frontendtech")
 
 api.add_resource(ApiList, "/apis")
 api.add_resource(Api, "/apis/<int:id>")
+
+api.add_resource(ApiProjectList, "/apiprojects")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)

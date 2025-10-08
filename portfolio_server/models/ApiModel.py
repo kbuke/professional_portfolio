@@ -9,6 +9,18 @@ class ApiModel(db.Model, SerializerMixin):
     name = db.Column(db.String, nullable = False, unique = True)
     img = db.Column(db.String, nullable = False)
 
+    # RELATIONS
+    projects = db.relationship("ProjectModel", back_populates = "apis", secondary = "api_projects")
+
+    serialize_rules = (
+        "-projects.institute",
+        "-projects.points",
+        "-projects.paragraphs",
+        "-projects.backend",
+        "-projects.frontend",
+        "-projects.apis"
+    )
+
     # VALIDATES
     @validates("name")
     def validate_name(self, key, value):
