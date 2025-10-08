@@ -23,4 +23,21 @@ class ApiProjectList(Resource):
                 return new_api_project.to_dict(), 201
             except ValueError as e:
                 return {"error": str[e]}
+
+class ApiProject(Resource):
+    def get(self, id):
+        api_project = ApiProjects.query.filter(ApiProjects.id == id).first()
+        if api_project:
+            return api_project.to_dict(), 201
+        else:
+            return{"error": f"Api Project relation not found"}, 404
+    
+    def delete(self, id):
+        api_project = ApiProjects.query.filter(ApiProjects.id == id).first()
+        if api_project:
+            db.session.delete(api_project)
+            db.session.commit()
+            return {"message": f"Project {id} deleted"}, 200
+        else:
+            return{"error": f"Project {id} is not on this app"}, 404
             

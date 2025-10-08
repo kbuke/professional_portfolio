@@ -12,6 +12,7 @@ class ApiProjects(db.Model, SerializerMixin):
     api_id = db.Column(db.ForeignKey("APIs.id"))
 
     # VALIDATIONS
+    @validates("project_id", "api_id")
     def validate_relation(self, key, value):
         # 1 - if no input is given return error
         if value is None:
@@ -30,8 +31,11 @@ class ApiProjects(db.Model, SerializerMixin):
 
         if project_id is not None and api_id is not None:
             existing_relation = ApiProjects.query.filter_by(
-                api_id=api_id,
-                project_id=project_id
+                api_id = api_id,
+                project_id = project_id
             ).first()
+            breakpoint()
             if existing_relation and existing_relation.id != self.id:
-                return{"error": "This relationship is already defined"}
+                raise ValueError("This relationship is already defined")
+        
+        return value
