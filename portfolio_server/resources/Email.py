@@ -24,8 +24,9 @@ class EmailList(Resource):
             return {"error": "Recipient not found"}, 404
         
         recipient_email = recipient.email
+        stored_email = os.getenv("NEW_GMAIL_ADDRESS")
 
-        if recipient_email == "kbuke1301@gmail.com":
+        if recipient_email == stored_email:
             password = os.getenv("NEW_GMAIL_AC_PW")
         else:
             password = os.getenv("GMAIL_PASSWORD")
