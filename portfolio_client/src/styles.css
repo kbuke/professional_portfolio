@@ -1,0 +1,50 @@
+*{
+    box-sizing: border-box;
+}
+
+/* Element styles */
+button{
+    cursor: pointer;
+}
+
+.input, .text-area{
+    border: 1px solid #aaa;
+    outline: none;
+    font-size: inherit;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    margin: .35rem;
+    width: 50%;
+}
+
+.input:focus-visible, .text-area{
+    border-color: #0af;
+    box-shadow: 0 0 5px 0 #0af;
+}
+
+.text-area{
+    height: 13vh;
+}
+
+.form{
+    width: 100vw;
+    background-color: hsl(80, 80%, 80%);
+    text-align: center;
+    align-items: center;
+}
+
+.div-input-error-message{
+    width: 50%;
+    outline: none;
+    box-shadow: 0 0 5px 0 red;
+    background-color: grey;
+    color: hsl(80, 100%, 100%);
+}
+
+#div-projects{
+    background-color: blue;
+}
+
+.project-dates{
+    font-weight: bold;
+}

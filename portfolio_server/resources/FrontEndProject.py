@@ -17,6 +17,6 @@ class FrontEndProjectList(Resource):
             )
             db.session.add(new_front_end_project)
             db.session.commit()
-            return {"message": "New frontend project created"}, 201
+            return new_front_end_project.to_dict(), 201
         except ValueError as e:
             return {"error": [str(e)]}

@@ -23,10 +23,10 @@ class ProjectModel(db.Model, SerializerMixin):
     institute = db.relationship("InstituteModel", back_populates = "projects")
 
     # relationship with points
-    points = db.relationship("ProjectPointModel", back_populates = "project")
+    points = db.relationship("ProjectPointModel", back_populates = "project", passive_deletes=True) #passive_deletes will ensure the point is deleted even though project_id is None which breaks validation logic
 
     # relationship with paragraphs
-    paragraphs = db.relationship("ProjectParagraphModel", back_populates = "project")
+    paragraphs = db.relationship("ProjectParagraphModel", back_populates = "project", cascade = "all, delete-orphan")
 
     # relationship with tech backend
     backend = db.relationship("TechnologyModel", back_populates = "project_back_end", secondary = "backend_tech")

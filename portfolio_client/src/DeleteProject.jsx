@@ -2,12 +2,16 @@ import { useDelete } from "./useDelete"
 
 
 export function DeleteProject({
-    projectId,
+    // projectId,
+    // setAllProjects,
+    // setDeleteProject
+    selectedProjectId,
     setAllProjects,
-    setDeleteProject
+    setProjectAction
 }){
+    console.log("Deleting project", selectedProjectId)
     const handleDelete = (e) => {
-        useDelete(e, `/api/projects/${projectId}`, setAllProjects, projectId, setDeleteProject)
+        useDelete(e, `/api/projects/${selectedProjectId}`, setAllProjects, selectedProjectId, setProjectAction)
     }
 
     return(
@@ -22,7 +26,7 @@ export function DeleteProject({
                 </button>
 
                 <button
-                    onClick={() => setDeleteProject(null)}
+                    onClick={() => setProjectAction(null)}
                 >
                     Cancel
                 </button>

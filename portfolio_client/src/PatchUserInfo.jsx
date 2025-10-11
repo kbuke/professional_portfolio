@@ -50,12 +50,13 @@ export function PatchUserInfo({
     return(
         <form
             onSubmit={handleSubmit(handleEmailEdit)}
+            className="form edit-user-info-form"
         >
             <h1>Edit User Info</h1>
             
             {inputChange("text", "Please enter first name", {...register("firstName", {
                 required: "Please enter your name (Kaan)"
-            })})}
+            })}, null, "edit-name")}
             <FormGroup errorMessage={errors?.firstName?.message}/>
 
             {inputChange("text", "Please enter last name", {...register("lastName", {
@@ -79,6 +80,7 @@ export function PatchUserInfo({
             <FormGroup errorMessage={errors?.email?.message}/>
 
             <textarea 
+                className="text-area text-area-edit-intro"
                 placeholder="Enter information about yourself"
                 {...register("userIntro", {
                     required: "Please enter some information about yourself."

@@ -8,7 +8,8 @@ export function AddProject({
     inputChange,
     allProjects, 
     setAllProjects,
-    dateInput
+    dateInput,
+    setProjectAction
 }){
     const [allInstitutes, setAllInstitutes] = useState([]) 
     useFetch("/api/institutes", setAllInstitutes)
@@ -21,12 +22,13 @@ export function AddProject({
 
     const onSubmit = (formData) => {
         console.log(formData)
-        usePost("/api/projects", formData, allProjects, setAllProjects)
+        usePost("/api/projects", formData, allProjects, setAllProjects, setProjectAction, null)
     }
 
     return(
         <form
             onSubmit={handleSubmit(onSubmit)}
+            className="form"
         >
             <h1>Add New Project</h1>
             {inputChange("text", "Enter new project's name", {...register("projectName", {
@@ -53,6 +55,7 @@ export function AddProject({
             />
 
             <select
+                defaultValue=""
                 {...register("instituteId")}
             >
                 <option value="" disabled>
@@ -72,6 +75,12 @@ export function AddProject({
             </select>
 
             <button>Create Project</button>
+
+            <button
+                onClick={() => setProjectAction(null)}
+            >
+                Cancel
+            </button>
         </form>
     )
 }

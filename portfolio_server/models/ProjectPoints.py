@@ -11,7 +11,7 @@ class ProjectPointModel(db.Model, SerializerMixin):
     project_point = db.Column(db.String, nullable = False)
 
     # RELATIONS
-    project_id = db.Column(db.ForeignKey("projects.id"))
+    project_id = db.Column(db.ForeignKey("projects.id", ondelete="CASCADE"))
     project = db.relationship("ProjectModel", back_populates = "points")
 
     # SERIALIZATION

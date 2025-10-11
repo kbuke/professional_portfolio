@@ -3,42 +3,47 @@ import { useFetch } from "./useFetch"
 import { usePatch } from "./usePatch"
 import { useForm } from "react-hook-form"
 import { FormGroup } from "./FormGroup"
+import { useEffect } from "react"
 
 export function PatchProject({
-    id, backend, frontend, 
-    institute, institute_id, project_end_date, 
-    project_img, project_intro, project_name, project_start_date, project_video,
-    editProject, setEditProject, inputChange, dateInput, setAllProjects
+    selectedProjectId, setProjectAction, inputChange, dateInput, setAllProjects
 }){
     const [allInstitutes, setAllInstitutes] = useState([])
-    const [projectFinished, setProjectFinished] = useState(project_end_date? true : false)
+    const [chosenProject, setChosenProject] = useState([])
+
     useFetch("/api/institutes", setAllInstitutes)
+    useFetch(`/api/projects/${selectedProjectId}`, setChosenProject)
+    console.log(chosenProject)
 
-    console.log("This porject has been finished", projectFinished)
+    const [projectFinished, setProjectFinished] = useState(chosenProject?.project_end_date? true : false)
 
-    const {
+    const{
         register,
         handleSubmit,
         formState: {errors},
-        watch
-    } = useForm({
-        defaultValues: {
-            projectName: project_name,
-            projectImg: project_img,
-            projectVideo: project_video,
-            projectIntro: project_intro,
-            projectStart: project_start_date,
-            projectEnd: !projectFinished? project_end_date : null,
-            instituteId: parseInt(institute_id, 10)
+        watch,
+        reset
+    } = useForm()
+
+    useEffect(() => {
+        if (chosenProject && chosenProject.project_name) {
+            reset({
+                projectName: chosenProject.project_name,
+                projectImg: chosenProject.project_img,
+                projectVideo: chosenProject.project_video,
+                projectIntro: chosenProject.project_intro,
+                projectStart: chosenProject.project_start_date,
+                projectEnd: chosenProject.project_end_date || null,
+                instituteId: parseInt(chosenProject.institute_id, 10)
+            });
         }
-    })
-    const instituteId = watch("instituteId")
-    console.log(`Selected institite ${instituteId}`)
+    }, [chosenProject, reset]);
 
-    const chosenInstitute = allInstitutes?.filter(institute => institute.id === Number(instituteId))
 
-    const instituteStart = chosenInstitute?.[0]?.institute_start_date
-    const instituteEnd = chosenInstitute?.[0]?.institute_end_date
+    const institueId = watch("instituteId")
+
+    const instituteStart = chosenProject?.institute?.institute_start_date
+    const instituteEnd = chosenProject?.institute?.institute_end_date
 
     const projectStart = watch("projectStart")
 
@@ -54,8 +59,8 @@ export function PatchProject({
 
     const handleEdit = () => {
         usePatch(
-            editBody, `/api/projects/${id}`,
-            parseInt(id, 10), setEditProject, setAllProjects
+            editBody, `/api/projects/${selectedProjectId}`,
+            parseInt(selectedProjectId, 10), setProjectAction, setAllProjects
         )
     }
 
@@ -63,7 +68,7 @@ export function PatchProject({
         <form
             onSubmit={handleSubmit(handleEdit)}
         >
-            <h1>Edit {project_name}</h1>
+            <h1>Edit {chosenProject?.project_name}</h1>
             {inputChange("text", "Please enter project name", {...register("projectName")})}
             {inputChange("text", "Please enter project image", {...register("projectImg")})}
             {inputChange("text", "Please enter project video", {...register("projectVideo")})}
@@ -130,6 +135,10 @@ export function PatchProject({
             </select>
 
             <button>Submit</button>
+
+            <button
+                onClick={() => setProjectAction(null)}
+            >Cancel</button>
         </form>
     )
 }

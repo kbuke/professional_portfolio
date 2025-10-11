@@ -4,21 +4,24 @@ import { useForm } from "react-hook-form"
 import { usePost } from "./usePost"
 
 export function AddProjectTech({
-    addProjectTech,
-    setAddProjectTech,
-    allFrontEnd,
-    setAllFrontEnd,
+    // addProjectTech,
+    // setAddProjectTech,
+    // allFrontEnd,
+    // setAllFrontEnd,
+    // allBackEnd,
+    // setAllBackEnd,
+    selectedProjectId,
+    setSelectedProjectId,
+    setProjectAction,
     allBackEnd,
     setAllBackEnd,
+    allFrontEnd,
+    setAllFrontEnd,
     backend,
     frontend
 }){
-    console.log(`Frontend:`, frontend)
-    console.log("Backend:", backend)
 
     const [allTech, setAllTech] = useState([])
-    // const [allFrontEnd, setAllFrontEnd] = useState([])
-    // const [allBackEnd, setAllBackEnd] = useState([])
     const [techId, setTechId] = useState(null)
 
     useFetch("/api/technologies", setAllTech)
@@ -45,15 +48,15 @@ export function AddProjectTech({
 
     const submitFrontEnd = () => {
         const completeData = {
-            projectId: addProjectTech,
+            projectId: selectedProjectId,
             techId: techId
         }
-        usePost("/api/frontendtech", completeData, allFrontEnd, setAllFrontEnd)
+        usePost("/api/frontendtech", completeData, allFrontEnd, setAllFrontEnd, setProjectAction, setSelectedProjectId)
     }
 
     const submitBackEnd = () => {
         const completeData = {
-            projectId: addProjectTech,
+            projectId: selectedProjectId,
             techId: techId
         }
         usePost("api/backendtech", completeData, allBackEnd, setAllBackEnd)
@@ -63,10 +66,11 @@ export function AddProjectTech({
         return(
             <div>
                 <h2>Add New {techType==="frontend"? "Frontend" : "Backend"} Tech</h2>
-                {availableTech.map(tech => {
+                {availableTech.map((tech, index) => {
                     return(
                         <form
-                           onSubmit={handleSubmit(techType === "frontend"? submitFrontEnd : submitBackEnd)} 
+                            key={index}
+                            onSubmit={handleSubmit(techType === "frontend"? submitFrontEnd : submitBackEnd)} 
                         >
                             <div
                                 onClick={() => setTechId(tech.id)}
@@ -87,13 +91,17 @@ export function AddProjectTech({
     }
 
     return(
-        <div>
+        <div className="form">
             <h1>Add New Tech to Project</h1>
             {renderTech(availableFrontEnd, "frontend")}
             {renderTech(availableBackEnd, "backend")}
 
             <button
-                onClick={() => setAddProjectTech(null)}
+                // onClick={() => setAddProjectTech(null)}
+                onClick={() => {
+                    setSelectedProjectId(null)
+                    setProjectAction(null)
+                }}
             >
                 Cancel
             </button>

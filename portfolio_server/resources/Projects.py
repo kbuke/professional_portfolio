@@ -14,8 +14,8 @@ class ProjectList(Resource):
     
     def post(self):
         json = request.get_json()
-        # breakpoint()
         institute_id = int(json.get("instituteId"))
+        print(f"Trying to load a project i did at {institute_id}")
         
         if json:
             try:

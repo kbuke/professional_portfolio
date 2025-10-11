@@ -5,14 +5,15 @@ import { AddEmail } from "./AddEmail";
 
 
 export function IntroSection({
-    inputChange
+    inputChange,
+    isLoading,
+    setIsLoading
 }){
     const [allUsers, setAllUsers] = useState([])
     const [isError, setIsError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
     const [editUser, setEditUser] = useState(false)
     const [sendEmail, setSendEmail] = useState(false)
-
+    const [sentEmail, setSentEmail] = useState(false)
     useFetch("/api/users", setAllUsers)
     
     const userInfo = allUsers[0]
@@ -67,6 +68,10 @@ export function IntroSection({
                     <AddEmail 
                         inputChange={inputChange}
                         setSendEmail={setSendEmail}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        sentEmail={sentEmail}
+                        setSentEmail={setSentEmail}
                     />
                     :
                     null

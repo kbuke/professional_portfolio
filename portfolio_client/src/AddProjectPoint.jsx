@@ -6,11 +6,17 @@ import { FormGroup } from "./FormGroup"
 
 
 export function AddProjectPoint({
-    addProjectPoint,
-    setAddProjectPoint,
+    selectedProjectId,
+    setSelectedProjectId,
+    setProjectAction,
     inputChange,
     allPoints,
     setAllPoints
+    // addProjectPoint,
+    // setAddProjectPoint,
+    // inputChange,
+    // allPoints,
+    // setAllPoints
 }){
 
     const {
@@ -22,15 +28,16 @@ export function AddProjectPoint({
     const handlePostPoint = (formData) => {
         const completeData = {
             ...formData,
-            projectId: addProjectPoint
+            projectId: selectedProjectId
         }
         console.log(completeData)
-        usePost("/api/points", completeData, allPoints, setAllPoints)
+        usePost("/api/points", completeData, allPoints, setAllPoints, setProjectAction, setSelectedProjectId)
     }
 
     return(
         <form
             onSubmit={handleSubmit(handlePostPoint)}
+            className="form"
         >
             <h1>Add Project Point</h1>
 
@@ -42,7 +49,8 @@ export function AddProjectPoint({
             <button>Submit</button>
 
             <button
-                onClick={() => setAddProjectPoint(null)}
+                // onClick={() => setAddProjectPoint(null)}
+                onClick={() => setProjectAction(null)}
             >
                 Cancel
             </button>

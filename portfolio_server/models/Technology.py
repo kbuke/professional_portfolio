@@ -19,6 +19,10 @@ class TechnologyModel(db.Model, SerializerMixin):
     # SERIALIZATION
     serialize_rules = (
         "-project_front_end.frontend",
+        "--project_front_end.backend",
+
+        "-project_back_end.backend",
+        "--project_back_end.frontend",
     )
 
     # VALIDATIONS
