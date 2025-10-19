@@ -16,11 +16,12 @@ class SocialMediaLists(Resource):
             try:
                 new_socials = SocialMediaModel(
                     name = json.get("socialName"),
-                    link = json.get("socialLink")
+                    link = json.get("socialLink"),
+                    img = json.get("socialImg")
                 )
                 db.session.add(new_socials)
                 db.session.commit()
-                return {"message": "New socials added."}
+                return new_socials.to_dict(), 201
             except ValueError as e:
                 return {"error": [str(e)]}
 

@@ -1,75 +1,132 @@
-import { TechStack } from "./TechStack"
 import { Projects } from "./Projects"
-import { IntroSection } from "./IntroSection"
-import { QualificationSection } from "./QualificationSection"
-import { InstituteSection } from "./InstituteSection.jsx"
+import { LandingPage } from "./LandingPage.jsx"
+import { useEffect, useRef, useState } from "react"
+import { useFetch } from "./useFetch.js"
+import { ContactSection } from "./ContactSection.jsx"
+import { NavBar } from "./NavBar.jsx"
 import "./styles.css"
-import { useFetchReducer } from "./useFetchReducer.js"
-import { useState } from "react"
+import { Reviews } from "./Reviews.jsx"
+import { DetectSections } from "./DetectSections.js"
 
 
 function App() {
-  // const [allTech, dispatch] = useReducer(reducer, {isError: false, isLoading: true})
-  var allTech = []
-  const tech = useFetchReducer("/api/technologies", allTech)
-  console.log(tech)
+  const [account, setAccount] = useState([])
+  const [allReviews, setAllReviews] = useState([])
+  const [activeSection, setActiveSection] = useState(null)
+  const [allProjects, setAllProjects] = useState([])
+  const [loggedInUser, setLoggedInUser] = useState(null)
 
-  allTech = tech?.data
+  useFetch("/api/session", setLoggedInUser)
 
-  // const allTech = tech?.data
+  console.log(loggedInUser)
 
-  const [isLoading, setIsLoading] = useState(false)
+  useFetch("/api/reviews", setAllReviews)
 
-  // Function for input types of text, password, email etc
-  const inputChange = (inputType, placeholder, register, defaultValue, additionalClassName) => {
-    return(
-      <input 
-        type={inputType}
-        placeholder={placeholder}
-        {...register}
-        defaultValue={defaultValue || ""}
-        className={`input input-${additionalClassName}`}
-      />
-    )
+  //Fetch all projects
+  useFetch("/api/projects", setAllProjects)
+
+  //Fetch user details
+  useFetch("/api/users/1", setAccount)
+
+  const landingRef = useRef(null)
+  const projectRef = useRef(null)
+  const reviewsRef = useRef(null)
+  const contactRef = useRef(null)
+
+  // SCROLL FUNCTION
+  const scrollToSection = (section) => {
+    switch(section){
+      case "Projects":
+        projectRef.current?.scrollIntoView({
+          behavior: "smooth"
+        })
+        break 
+      case "Referals":
+        reviewsRef.current?.scrollIntoView({
+          behavior: "smooth"
+        })
+        break
+      case "Contact":
+        contactRef.current?.scrollIntoView({
+          behavior: "smooth"
+        })
+        break
+      default:
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        })
+    }
   }
 
-  // Function for input that are dates
-  const dateInput = (placeholder, register) => {
-    return(
-      <div>
-        <label>{placeholder}</label>
-        <input 
-          type="date"
-          {...register}
-      />
-      </div>
+  // DETECT WHEN SECTION IS IN VIEW
+  useEffect(() => {
+    const sections = [
+      {name: null, ref: landingRef},
+      {name: "Projects", ref: projectRef},
+      {name: "Referals", ref: reviewsRef},
+      {name: "Contact", ref: contactRef}
+    ]
+
+    const observer = new IntersectionObserver( 
+      entries => {
+        const visibleSection = entries.find(entry => entry.isIntersecting)
+        if (visibleSection){
+          const sectionName = sections.find(
+            (s) => s.ref.current === visibleSection.target
+          )?.name
+          setActiveSection(sectionName)
+        }
+      },
+      {threshold: 0.6}
     )
-  }
 
-
+    sections.forEach(s => {
+      if(s.ref.current) observer.observe(s.ref.current)
+    })
+    
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <>
-      {allTech?.map(tech => <h1>{tech.tech_name}</h1>)}
-      <IntroSection 
-        inputChange={inputChange}
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
+      <div
+        ref={landingRef}
+      >
+        <LandingPage 
+          {...account}
+        />
+      </div>
+
+      <NavBar 
+        scrollToSection={scrollToSection}
+        activeSection={activeSection}
+        setLoggedInUser={setLoggedInUser}
+        loggedInUser={loggedInUser}
       />
 
-      <TechStack 
-        inputChange={inputChange}
-      /> 
+      <div
+        ref={projectRef}
+      >
+        <Projects 
+          allProjects={allProjects}
+        />
+      </div>
 
-      <Projects 
-        inputChange={inputChange}
-        dateInput={dateInput}
-      />
+      <div
+        ref={reviewsRef}
+      >
+        <Reviews 
+          allReviews={allReviews}
+          setAllReviews={setAllReviews}
+        />
+      </div>
 
-      <InstituteSection 
-        dateInput={dateInput}
-        inputChange={inputChange}
-      />
+      <div
+        ref={contactRef}
+      >
+        <ContactSection />
+      </div>
     </>
   )
 }

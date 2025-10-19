@@ -1,150 +1,188 @@
-import { useState } from "react"
-import { AddProjectPoint } from "./AddProjectPoint"
-import { AddProjectTech } from "./AddProjectTech"
-import { DeleteProject } from "./DeleteProject"
-import { PatchProject } from "./PatchProject"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import computerScreen from "./resources/computer-screen.png"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
 
-export function RenderProject({
-    id, backend, frontend, institute, points, project_intro,
-    project_name, projcect_video, project_img, project_start_date, 
-    project_end_date, setProjectAction, projectAction, inputChange,
-    dateInput, setAllProjects, allPoints, setAllPoints, allFrontEnd,
-    setAllFrontEnd, allBackEnd, setAllBackEnd, project
+export function RenderProjects({
+    points, frontend, backend, id,
+    project_name, project_start_date, project_end_date,
+    project_intro, project_img, institute, setProjectMoreInfo,
+    github_url, cloud
 }){
-    const [selectedProjectId, setSelectedProjectId] = useState(null)
 
-    const instituteImg = institute?.institute_img
-    const instituteName = institute?.institute_name
+    console.log("id", id)
+    // const [projectId, setProjectId] = lowestProjectId
 
-    const renderProjectStack = (stack, stackName) => (
-        stack?.length > 0 ? (
-            <div>
-                <label>{stackName}</label>
-                {stack.map((tech, index) => (
-                    <div key={index}>
-                        <img src={tech?.tech_img} alt={tech?.tech_name} />
-                        <p>{tech?.tech_name}</p>
-                    </div>
-                ))}
-            </div>
-        ) : null
-    )
-
-    const projectButtons = (buttonText) => {
+    //RENDER PROJECT DATES
+    const projectDates = (text, date) => {
         return(
-            <button
-                onClick={() => {
-                    setProjectAction(buttonText)
-                    setSelectedProjectId(id)
-                }}
+            date === null ?
+                <p
+                    className="project-date-text ongoing-project-txt"
+                >
+                    On-going
+                </p>
+            :
+            <p
+                className="project-date-text"
             >
-                {buttonText}
-            </button>
+                <span
+                    className="date-span"
+                >
+                    {text}
+                </span>
+                {date}
+            </p>
         )
     }
 
-    return(
-        <div 
-            className={`project project-${project_name}`}
-        >
-            {/* Left hand side of container showing picture/vid and institute */}
-            <div className="project-img-video">
-                <img src={projcect_video?projcect_video:project_img}/>
+    //RENDER PROJECT TECH
+    const renderProjectTech = (techType, label) => {
+        return(
+            <div
+                className="project-tech-container"
+            >
+                <label>
+                    {label}
+                </label>
 
-                <div className="project-institute">
-                    <img src={instituteImg}/>
-                    <h3>{instituteName}</h3>
-                </div>
-            </div>
-
-            {/* Right hand side showing title, dates, intro, points, stack and button options */}
-            <div className="project-info">
-                <h2>{project_name}</h2>
-                <p>
-                    <span className="project-dates">Start Date: </span>
-                    {project_start_date}
-                </p>
-                {project_end_date ?
-                    <p>
-                        <span className="project-dates">End Date: </span>
-                        {project_end_date}
-                    </p>
-                    :
-                    null
-                }
-
-                <p>{project_intro}</p>
-
-                {points.length > 0?
-                    <ul>
-                        {points.map((point, index) => {
+                <div
+                    className="tech-img-grid"
+                >
+                    <div
+                        className="project-lang-img-container"
+                    >
+                        {techType.map((tech, index) => {
                             return(
-                                <li
+                                <img 
+                                    src = {tech?.tech_img}
+                                    alt = {tech?.tech_name}
                                     key={index}
-                                >
-                                    {point.project_point}
-                                </li>
+                                    className="project-tech-img"
+                                />
                             )
                         })}
-                    </ul>
-                    :
-                    <p>No Points Registered Yet.</p>
-                }
+                    </div>
+                </div>
+            </div>
+        )
+    } 
 
-                {renderProjectStack(frontend, "Front-End: ")}
-                {renderProjectStack(backend, "Back-End: ")}
+    return(
+        <div
+            className="project-grid"
+        >
+            <div>
+                <div
+                    className="project-name-arrow-container"
+                >
+                    <h2
+                        className="project-heading"
+                    >
+                        {project_name}
+                    </h2>
+                </div>
 
-                <div className="project-buttons-div">
-                    {projectButtons("Add Point")}
-                    {projectButtons("More Information")}
-                    {projectButtons("Add Tech")}
-                    {projectButtons("Delete Project")}
-                    {projectButtons("Edit Project")}
+                <div
+                    className="date-container"
+                >
+                    {projectDates("Start Date: ", project_start_date)}
+                    {projectDates("End Date: ", project_end_date)}
+                </div>
+
+                <div
+                    className="project-information-div"
+                >
+                    <p>
+                        {project_intro}
+                    </p>
+
+                    {points.length === 0 ?
+                        <p>No points to display.</p>
+                        :
+                        <ul>
+                            {points.map((point, index) => {
+                                return(
+                                    <li
+                                        key={index}
+                                        className="project-point-li"
+                                    >
+                                        {point.project_point}
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    }
+
+                    <button
+                        className="project-info-button"
+                        onClick={() => setProjectMoreInfo(true)}
+                    >
+                        <span>
+                            More Information
+                        </span>
+                    </button>
+                </div>
+
+                <div
+                    className="project-tech-grid"
+                >
+                    {renderProjectTech(frontend, "Frontend Tech")}
+                    {renderProjectTech(backend, "Backend Tech")}
+                    {renderProjectTech(cloud, "Cloud Tech")}
                 </div>
             </div>
 
-            {/* Allows for pop ups based on selected action */}
-            {projectAction === "Add Point" && selectedProjectId === id? 
-                <AddProjectPoint 
-                    selectedProjectId={selectedProjectId}
-                    setSelectedProjectId={setSelectedProjectId}
-                    setProjectAction={setProjectAction}
-                    inputChange={inputChange}
-                    allPoints={allPoints}
-                    setAllPoints={setAllPoints}
-                />
-                :
-            projectAction=== "Add Tech" && selectedProjectId == id?
-                <AddProjectTech 
-                    selectedProjectId={selectedProjectId}
-                    setSelectedProjectId={setSelectedProjectId}
-                    setProjectAction={setProjectAction}
-                    allBackEnd={allBackEnd}
-                    setAllBackEnd={setAllBackEnd}
-                    allFrontEnd={allFrontEnd}
-                    setAllFrontEnd={setAllFrontEnd}
-                    {...project}
-                />
-                :
-            projectAction === "Delete Project" && selectedProjectId == id?
-                <DeleteProject 
-                    selectedProjectId={selectedProjectId}
-                    setAllProjects={setAllProjects}
-                    setProjectAction={setProjectAction}
-                />
-                :
-            projectAction === "Edit Project" && selectedProjectId == id?
-                <PatchProject 
-                    selectedProjectId={selectedProjectId}
-                    setProjectAction={setProjectAction}
-                    inputChange={inputChange}
-                    dateInput={dateInput}
-                    setAllProjects={setAllProjects}
-                />
-                :
-                null
-                /* Need to add More Info option */
-            }
+            <div
+                className="additional-project-info-div"
+            >
+                <div
+                    className="project-screen-container"
+                >
+                    <img 
+                        src={computerScreen}
+                        className="project-screen"
+                        alt="Computer Frame"
+                    />
+
+                    <img 
+                        src={project_img}
+                        className="project-img"
+                        alt="Project Screenshot"
+                    />
+                </div>
+
+                <div
+                    className="project-institute-grid"
+                >
+                    <p
+                        className="project-institute-label"
+                    >
+                        Completed At:
+                    </p>
+
+                    <img 
+                        src={institute?.institute_img}
+                        className="project-institute-img"
+                    />
+                </div>
+
+                <div
+                    className="project-links-div"
+                >
+                    {github_url ?
+                        <a 
+                            href={github_url}
+                        >
+                            <FontAwesomeIcon 
+                                icon={faGithub}
+                                className="github-repo-link"
+                            />
+                        </a>
+                        :
+                        null
+                    }
+                </div>
+            </div>
         </div>
     )
 }

@@ -29,4 +29,5 @@ bcrypt = Bcrypt(app)
 
 api = Api(app)
 
-CORS(app)
+# CORS(app)
+CORS(app, supports_credentials=True)

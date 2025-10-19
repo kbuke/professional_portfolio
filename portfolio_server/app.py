@@ -30,7 +30,11 @@ from resources.FrontEndProject import FrontEndProjectList
 
 from resources.Api import ApiList, Api
 
+from resources.Review import ReviewList, Review
+
 from resources.ApiProjects import ApiProjectList, ApiProject
+
+from resources.CloudProjectModel import CloudProjectList, CloudProject
 
 api.add_resource(ProjectList, "/projects")
 api.add_resource(Project, "/projects/<int:id>")
@@ -74,6 +78,12 @@ api.add_resource(Api, "/apis/<int:id>")
 
 api.add_resource(ApiProjectList, "/apiprojects")
 api.add_resource(ApiProject, "/apiprojects/<int:id>")
+
+api.add_resource(ReviewList, "/reviews")
+api.add_resource(Review, "/reviews/<int:id>")
+
+api.add_resource(CloudProjectList, "/cloudprojects")
+api.add_resource(CloudProject, "/cloudprojects/<int:id>")
 
 if __name__ == "__main__":
     app.run(port = 5555, debug = True)

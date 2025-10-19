@@ -1,6 +1,5 @@
-export function usePost(url, information, prevState, setState, setEndActionState, setId, setIsLoading, setSentEmail){
+export function usePost(url, information, prevState, setState, setEndActionState){
     console.log(information)
-    setIsLoading(true)
     fetch(url, {
         method: "POST",
         headers: {
@@ -11,9 +10,10 @@ export function usePost(url, information, prevState, setState, setEndActionState
         .then(r => r.json())
         .then(newAddition => {
             setState([...prevState, newAddition])
-            setIsLoading(false)
-            setSentEmail(true)
-            setEndActionState(null)
-            {setId ? setId(null) : null}
+            {setEndActionState ?
+                setEndActionState(null)
+                :
+                null
+            }
         })
 }

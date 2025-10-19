@@ -10,7 +10,7 @@ from config import db
 class ProjectList(Resource):
     def get(self):
         projects = [project.to_dict() for project in ProjectModel.query.all()]
-        return projects
+        return projects, 201
     
     def post(self):
         json = request.get_json()
@@ -72,7 +72,7 @@ class Project(Resource):
         if project:
             db.session.delete(project)
             db.session.commit()
-            return {"error": f"Project {id} deleted."}, 200
+            return {"message": f"Project {id} deleted."}, 200
         else:
             return{"error": f"Project {id} not found"}, 404
     

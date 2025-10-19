@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect } from "react";
 
 export function useFetch(url, setState, dependancies=[]){
     useEffect(() => {

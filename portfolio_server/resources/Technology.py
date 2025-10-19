@@ -17,7 +17,8 @@ class TechnologyList(Resource):
             try:
                 new_tech = TechnologyModel(
                     tech_name = json.get("techName"),
-                    tech_img = json.get("techImg")
+                    tech_img = json.get("techImg"),
+                    tech_type = json.get("techType")
                 )
                 db.session.add(new_tech)
                 db.session.commit()
@@ -26,6 +27,13 @@ class TechnologyList(Resource):
                 return {"error": [str(e)]}
 
 class Technology(Resource):
+    def get(self, id):
+        tech = TechnologyModel.query.filter(TechnologyModel.id==id).first()
+        if tech:
+            return tech.to_dict(), 201
+        else:
+            return {"error": f"Tech {id} not found"}, 404
+        
     def delete(self, id):
         tech = TechnologyModel.query.filter(TechnologyModel.id == id).first()
         if tech:

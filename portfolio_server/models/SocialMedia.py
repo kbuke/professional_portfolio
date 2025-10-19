@@ -8,6 +8,7 @@ class SocialMediaModel(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String)
     link = db.Column(db.String)
+    img = db.Column(db.String)
 
     @validates("name")
     def validate_media(self, key, value):

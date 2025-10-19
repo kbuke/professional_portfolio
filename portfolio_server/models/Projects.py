@@ -16,6 +16,8 @@ class ProjectModel(db.Model, SerializerMixin):
     project_start_date = db.Column(db.Date)
     project_end_date = db.Column(db.Date, nullable = True)
     project_intro = db.Column(db.String, nullable = False)
+    website_url = db.Column(db.String, nullable = True)
+    github_url = db.Column(db.String, nullable = True)
 
     # RELATIONS
     # relationship with institute
@@ -36,6 +38,9 @@ class ProjectModel(db.Model, SerializerMixin):
 
     # relationship with apis
     apis = db.relationship("ApiModel", back_populates = "projects", secondary = "api_projects")
+
+    # relationship with cloud engineering
+    cloud = db.relationship("TechnologyModel", back_populates = "project_cloud", secondary = "cloud_projects")
 
     # SERIALIZATION
     # institutes
@@ -117,7 +122,7 @@ class ProjectModel(db.Model, SerializerMixin):
         if project_start_date < institute_start_date:
             raise ValueError("You must have started the project after you started at the institute") #
         
-        if institute_end_date < project_start_date:
+        if institute_end_date and institute_end_date < project_start_date:
             raise ValueError("You must have started the project before finishing at the institute.") #
         
         if institute_end_date and project_end_date and institute_end_date < project_end_date:

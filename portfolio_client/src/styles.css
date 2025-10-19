@@ -2,49 +2,836 @@
     box-sizing: border-box;
 }
 
-/* Element styles */
+body{
+    overflow-y: auto;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 button{
     cursor: pointer;
 }
 
-.input, .text-area{
+a {
+    color: inherit;       /* makes it take the color of the parent element */
+    text-decoration: none; /* removes the underline */
+}
+
+a:visited {
+    color: inherit;       /* ensures visited links look the same */
+}
+
+
+input, textarea{
     border: 1px solid #aaa;
     outline: none;
     font-size: inherit;
-    padding: 0.5rem;
-    border-radius: 0.2rem;
-    margin: .35rem;
-    width: 50%;
+    padding: 0.5em;
+    border-radius: 0.2em;
 }
 
-.input:focus-visible, .text-area{
+input:focus-visible, textarea:focus-visible{
     border-color: #0af;
     box-shadow: 0 0 5px 0 #0af;
 }
 
-.text-area{
-    height: 13vh;
+.div-input-error-message{
+    color: hsla(51, 100%, 50%, 0.788);
+    margin-bottom: 5px;
+    font-weight: 600;
 }
 
-.form{
-    width: 100vw;
-    background-color: hsl(80, 80%, 80%);
+
+
+.section-heading{
+    position: relative;
+    /* display: inline-block; */
+    padding-bottom: 10px;
+    display: block;
     text-align: center;
+    padding-bottom: 12px;
+
+    text-transform: uppercase;
+    /* align-self: center;
+    justify-self: center; */
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: 35px;
+    color: #222;
+}
+
+.section-heading::after {
+  content: "";
+  position: absolute;
+  left: 50%; /* start from center */
+  bottom: 0;
+  transform: translateX(-50%); /* perfectly center the underline */
+  width: 45%; /* 👈 always visible — adjust this width as you like */
+  height: 4px;
+  background: linear-gradient(90deg, #ff8a00, #e52e71);
+  border-radius: 2px;
+  transition: transform 0.4s ease, width 0.4s ease;
+}
+
+.section-heading:hover::after {
+  width: 70%; /* expand slightly on hover for a smooth animation */
+}
+
+/* PATCH INPUT */
+#patch-input-div{
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    width: 40rem;
+    justify-self: center;
+}
+
+/* LANDING PAGE SECTION */
+.landing-pg-div{
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-.div-input-error-message{
-    width: 50%;
-    outline: none;
-    box-shadow: 0 0 5px 0 red;
-    background-color: grey;
-    color: hsl(80, 100%, 100%);
+.user-name,
+.user-role{
+    text-transform: capitalize;
+    margin-left: 20px;
 }
 
-#div-projects{
-    background-color: blue;
+.landing-page-intro-container{
+    background-color: hsla(0, 0%, 0%, 0.4);
+    width: 94%;
+    height: auto;
+    text-align: center;
+    color: white;
+    border-radius: 0.3em;
+    padding: 20px;
+
+    animation: moveUp 2s;
 }
 
-.project-dates{
+@keyframes moveUp {
+    0%{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    80%{
+        opacity: 0.5;
+        transform: translateY(-20px);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.account_name{
+    text-transform: uppercase;
+    font-size: 60px;
+    font-weight: 400;
+    letter-spacing: 35px;
+}
+
+.user-info-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.user-intro-text{
+    font-weight: 400;
+    font-size: 20px;
+}
+
+/* TECH CONTAINER */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 30px 60px; /* space between cards */
+  justify-items: center;
+  padding: 40px;
+}
+
+/* Individual tech cards */
+.tech-card {
+  width: 170px;
+  height: 130px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(#efeff0, #737475) padding-box,
+              linear-gradient(45deg, #ff3cac, #784ba0, #2b86c5) border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  padding: 10px;
+}
+
+.tech-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+}
+
+/* Logo image */
+.tech-logo {
+  width: 90px;
+  height: 70px;
+  object-fit: contain;
+  margin-bottom: 10px;
+  /* background-color: white; */
+  border-radius: 0.3rem;
+}
+
+/* Label text */
+.tech-name {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: white;
+  text-align: center;
+}
+
+
+
+/* Nav Bar */
+.nav-bar-div{
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    background-color: black;
+    padding: 15px;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.option-div{
+    border: solid;
+    padding: 10px;
+    width: 120px;
+    border-radius: 0.3em;
+    text-decoration: none;
+    padding: 20px;
+    border: solid;
+    /* color: #E1332D; */
+    color: white;
+    /* border: 3px solid #E1332D; */
+    text-transform: uppercase;
+    font-size: 20px;
+    font-family: "roboto";
+    font-weight: 300;
+    letter-spacing: -2px;
+    transition: all 0.5s;
+    width: 150px;
+    text-align: center;
+}
+
+.option-div:hover{
+    font-weight: 900;
+    letter-spacing: 4px;
+    /* border: 7px solid #E1332D; */
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    width: 160px;
+    display: flex;
+    justify-content: center;
+}
+
+.selected-header{
+    color: red;
+}
+
+.project-slider-wrapper{
+    overflow: hidden;
+    width: 100%;
+}
+
+.project-slider{
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.project-grid {
+    flex: 0 0 100%; /* Each project takes full width */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Keep your two-column layout */
+    gap: 20px; /* optional */
+}
+
+.project-name-arrow-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project-heading{
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 40px;
+    letter-spacing: 20px;
+}
+
+.arrow-text-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.project-arrow-options{
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+
+.project-button{
+    height: 60px;
+    width: 60px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.project-button:disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.disabled-project-arrow{
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.arrow{
+    height: 100%;
+    width: 100%;
+}
+
+.project-button-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+}
+
+.project-date-text{
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+.ongoing-project-txt{
+    color: red;
+    /* font-weight: bold; */
+}
+
+.date-span{
     font-weight: bold;
 }
+
+.date-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-information-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.project-point-li{
+    margin-bottom: 8px;
+}
+
+.project-info-button{
+    border-radius: 16px;
+    text-decoration: none;
+    color: white;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 18px;
+    border: 3px solid white;
+    padding: 20px 30px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    background-color: black;
+}
+
+.project-info-button:hover{
+    /* background-color: #F44336; */
+    background-image: linear-gradient(
+        to right, 
+        hsl(136, 65%, 57%),
+        hsl(124, 76%, 31%));
+}
+
+.project-info-button:before{
+    content: "";
+    background-color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    transform: translateX(-100%) rotate(45deg);
+    transition: all 0.5s;
+}
+
+.project-info-button:hover:before{
+    transform: translateX(100%) rotate(45deg);
+}
+
+.project-tech-grid{
+    /* justify-items: flex-start; */
+    width: 100%;
+    display: grid;
+    /* border: solid; */
+    grid-template-columns: 1fr 1fr;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px;
+}
+
+.project-tech-label{
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.tech-img-grid{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.project-lang-img-container{
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+}
+
+.project-tech-img{
+    height: 60px;
+    width: 60px;
+    border-radius: 0.3em;
+    /* border-radius: 50%; */
+    border: solid;
+}
+
+.additional-project-info-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.project-tech-container{
+    margin-bottom: 30px;
+}
+
+.project-screen-container {
+  position: relative;
+  width: 380px; /* same as .project-screen width */
+  height: 360px; /* same as .project-screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.project-screen {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.project-img {
+  position: absolute;
+  top: 6%;      /* adjust this value */
+  left: 4.8%;     /* adjust this value */
+  width: 90.5%;    /* adjust this value */
+  height: 54%;   /* adjust this value */
+  object-fit: cover; /* or contain, depending on what you prefer */
+  border-radius: 0.3rem; /* optional: smooth edges */
+}
+
+.project-institute-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 10px;
+}
+
+.project-institute-label{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 16px;
+
+}
+
+.project-institute-img{
+    height: 90px;
+}
+
+.project-links-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.github-repo-link{
+    height: 80px;
+    width: 80px;
+    text-decoration: none;
+}
+
+
+
+/* REVIEWS */
+.review-section-container{
+   display: flex;
+   flex-direction: column; 
+}
+.review-div-flex{
+    display: flex;
+    gap: 40px;
+    overflow-x: auto;
+    padding: 10px;
+    scroll-snap-type: x mandatory;
+}
+
+.review-card{
+    flex: 0 0 23%;
+    height: 300px;
+    overflow: hidden;
+    background-image: linear-gradient(
+        to right bottom, 
+        hsla(0, 10%, 52%, 0.164),
+        hsl(0, 2%, 54%)
+    );
+    width: 350px;
+    border-radius: 0.3rem;
+    padding: 10px;
+    box-shadow: 10px 10px 15px hsl(0, 11%, 44%);
+    scroll-snap-align: start;
+}
+
+.reviewer-info-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+}
+
+.review-user-img{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: solid;
+}
+
+.reviewer-name{
+    text-transform: uppercase;
+    font-size: 20px;
+    
+}
+
+.reviewer-relation{
+    text-align: center;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.relation-span{
+    font-weight: 400;
+}
+
+.review-stars {
+    justify-content: center;
+    margin-top: 5px;
+    justify-content: center;
+    text-align: center;
+}
+
+.star {
+    font-size: 24px;
+    color: lightgray; /* default empty star */
+    margin: 0 2px;
+    transition: color 0.3s ease;
+}
+
+.star.filled {
+    color: gold; /* filled star */
+}
+
+.review-button{
+    width: 20%;
+    justify-self: center;
+    align-self: center;
+    margin-top: 30px;
+    background-image: linear-gradient(
+        to right top,
+        hsl(0, 2%, 25%),
+        hsl(0, 2%, 50%)
+    );
+}
+
+
+
+
+
+
+/* PATCH USER INFO */
+#edit-user-info-form, 
+#add-socials-form{ /* social media add form */
+    align-items: center;
+}
+
+.text-area-edit-intro{
+    justify-self: center;
+    width: 40rem;
+    height: 100px;
+}
+
+#user-edit-button-container{
+    padding: 10px;
+}
+
+.all-socials-div{
+    /* background-color: hsl(0, 14%, 50%); */
+    background-image: linear-gradient(
+        to right bottom,
+        hsl(0, 60%, 70%),
+        hsl(0, 40%, 50%)
+    );
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.socials-grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    /* background-color: hsl(0, 14%, 50%); */
+    padding: 40px 0px;
+}
+
+#social-media-section{
+    text-align: center;
+}
+
+.social-media-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 20px;
+}
+
+.social-media-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-icon{
+    width: 90px;
+    height: 90px;
+    background-color: #f1f1f1;
+    margin: 10px;
+    border-radius: 30%;
+    color: #10ac84; 
+    box-shadow: 0 5px 15px -5px #00000070;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    overflow: hidden;
+}
+
+/* The pseudo-element goes here — on the container, not the icon itself */
+.social-icon::before {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background-color: #10ac84;
+    left: 110%;
+    top: 90%;
+    transform: rotate(45deg);
+    transition: all 0.7s ease;
+    z-index: 0; /* stays behind the icon */
+}
+
+/* Trigger the animation when hovering over the parent */
+.social-icon:hover::before {
+    animation: slide-bg 0.7s forwards;
+}
+
+/* Animate the background movement */
+@keyframes slide-bg {
+    0% {
+        left: 110%;
+        top: 90%;
+    }
+    50% {
+        left: 15%;
+        top: -30%;
+    }
+    100% {
+        left: -10%;
+        top: -10%;
+    }
+}
+
+/* Keep your icon styling clean */
+.social-icon-img {
+    font-size: 25px;
+    transition: transform 0.3s, color 0.3s;
+    z-index: 1; /* ensures icon stays above the ::before layer */
+}
+
+/* Add your hover effects */
+.social-icon:hover .social-icon-img {
+    transform: scale(1.3);
+    color: #f1f1f1;
+}
+
+#email-section{
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    z-index: 0;
+    /* background-color: #777; */
+    background-image: linear-gradient(
+        to bottom right,
+        hsl(158, 65%, 45%),
+        hsl(0, 1%, 26%)
+    );
+    color: white;
+    padding: 10px;
+    box-shadow: 5px 7px 8px hsl(0, 6%, 27%);
+}
+
+#send-email-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.send-email-button{
+    width: 220px;
+    height: 80px;
+    /* color: #ff0; */
+    color: white;
+    background-color: transparent;
+    font-size: 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 80px;
+    transition: all 0.5s;
+    position: relative;
+    margin-top: 10px;
+    border: none;
+}
+
+.send-email-button::before,
+.send-email-button:after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s;
+    z-index: -1;
+}
+
+.send-email-button::before{
+    left: 0;
+    box-shadow: -100px 0 0 white;
+}
+
+.send-email-button::after{
+    right: 0;
+    box-shadow: 100px 0 0 white;
+}
+
+.send-email-button:hover:before{
+    left: 50%;
+    box-shadow: 30px 0 0 white;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.send-email-button:hover:after{
+    right: 50%;
+    box-shadow: -30px 0 0 white;
+    transform: translateX(50%) translateY(-50%);
+}
+
+.email-button-span{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 8px;
+    transform: scale(0);
+    transition: all 0.3s;
+    z-index: -1;
+}
+
+.send-email-button:hover .email-button-span{
+    transform: scale(1);
+    transition-delay: 0.4s;
+}
+
+.send-email-button:hover{
+    color: #262626;
+    transition-delay: 0.4s;
+}
+
+
+/* ADD SOCIAL MEDIA */
+#post-input-div{
+    display: grid;
+    margin-bottom: 10px;
+    width: 80%;
+    grid-template-columns: 20% 80%;
+    justify-self: center;
+}
+
+/* ADD EMAIL */
+.email-message-text-area{
+    justify-self: center;
+    width: 80%;
+    height: 5rem;
+}
+
+
+
+
+
+

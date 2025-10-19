@@ -1,9 +1,10 @@
 export function usePatch(
     // e, 
-    body, url, instanceId, setEditInstance, setAllState){
+    body, url, instanceId, setEditInstance, setLoading, setEditState){
     // e.preventDefault()
 
     const editBody = body
+    setLoading(true)
 
     fetch(url, {
         method: "PATCH",
@@ -14,19 +15,28 @@ export function usePatch(
     })
     .then(r => {
         if(r.ok){
+            setLoading(false)
             return r.json()
         } else {
+            setLoading(false)
             console.error("Failed to update info")
             return null
         }
     })
     .then(newInfo => {
-        if(newInfo){
-            setAllState(prev => prev.map(instance =>
-                instance.id === instanceId ? newInfo : instance
-            ))
-            setEditInstance(false)
-        }
-    })
+        if (newInfo) {
+            setEditInstance(prev => {
+                if (Array.isArray(prev)) {
+                    return prev.map(instance =>
+                        instance.id === instanceId ? newInfo : instance
+                    )
+                }
+                setEditState(null)
+                return newInfo  // single object
+            })
+        setLoading(false)
+    }
+})
+
     .catch(err => console.error("Patch error:", err))
 }
