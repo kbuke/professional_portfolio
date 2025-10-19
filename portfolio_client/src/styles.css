@@ -830,6 +830,58 @@ input:focus-visible, textarea:focus-visible{
     height: 5rem;
 }
 
+/* ADMIN */
+.admin-project-option-grid{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    /* display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px; */
+}
+
+.admin-instance-title{
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 200;
+}
+
+.admin-project-button-div{
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.admin-project-button{
+    height: auto;
+    padding: 20px;
+    width: 200px;
+    border: none;
+    border-radius: 0.3rem;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: white;
+    box-shadow: 10px 10px 15px hsl(0, 19%, 54%);
+}
+
+.admin-delete-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(0, 51%, 55%),
+        hsl(0, 69%, 43%)
+    );
+}
+
+.admin-edit-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(122, 37%, 83%),
+        hsl(104, 50%, 51%)
+    );
+}
 
 
 

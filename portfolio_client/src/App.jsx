@@ -7,6 +7,7 @@ import { NavBar } from "./NavBar.jsx"
 import "./styles.css"
 import { Reviews } from "./Reviews.jsx"
 import { DetectSections } from "./DetectSections.js"
+import { AdminSection } from "./AdminSection.jsx"
 
 
 function App() {
@@ -127,6 +128,20 @@ function App() {
       >
         <ContactSection />
       </div>
+
+      {loggedInUser ?
+        <div>
+          <AdminSection 
+            allReviews={allReviews}
+            setAllReviews={setAllReviews}
+
+            allProjects={allProjects}
+            setAllProjects={setAllProjects}
+          />
+        </div>
+        :
+        null
+      }
     </>
   )
 }

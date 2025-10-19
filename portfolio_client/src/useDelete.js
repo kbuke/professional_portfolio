@@ -1,5 +1,7 @@
-export function useDelete(e, url, setState, instanceId, setDelete){
-    e.preventDefault()
+export function useDelete(
+    // e, 
+    url, setState, instanceId, setDelete){
+    // e.preventDefault()
     fetch(url, {
         method: "DELETE"
     })
