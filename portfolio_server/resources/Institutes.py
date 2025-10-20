@@ -48,7 +48,8 @@ class Institute(Resource):
                     setattr(institute, attr, data[attr])
                 db.session.add(institute)
                 db.session.commit()
-                return {"message": f"Institute {id} updated."}
+                # return {"message": f"Institute {id} updated."}
+                return make_response(institute.to_dict(), 202)
             except ValueError as e:
                 return {"error": [str(e)]}
         else:

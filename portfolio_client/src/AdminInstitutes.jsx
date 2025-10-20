@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { AdminAddInstitute } from "./AdminAddInstitute"
 import { AdminDeleteInstitute } from "./AdminDeleteInstitute"
+import { AdminPatchInstitute } from "./AdminPatchInstitute"
 
 export function AdminInstitutes({
    id, institute_city, institute_country, institute_end_date,
@@ -69,6 +70,25 @@ export function AdminInstitutes({
                     institueName={institute_name}
                     id={id}
                     setAllInstitutes={setAllInstitutes}
+                    setInstituteAction={setInstituteAction}
+                    setSelectedInstitute={setSelectedInstitute}
+                />
+                :
+                null
+            }
+
+            {selectedInstitute === id && instituteAction === "edit"?
+                <AdminPatchInstitute 
+                    instituteName={institute_name}
+                    instituteImg = {institute_img}
+                    instituteCity = {institute_city}
+                    instituteCountry = {institute_country}
+                    instituteIntro = {institute_intro}
+                    instituteStartDate = {institute_start_date}
+                    instituteEndDate = {institute_end_date}
+                    id = {id}
+                    setAllInstitutes = {setAllInstitutes}
+                    allInstitutes = {allInstitutes}
                     setInstituteAction={setInstituteAction}
                     setSelectedInstitute={setSelectedInstitute}
                 />

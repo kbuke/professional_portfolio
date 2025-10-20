@@ -1,7 +1,6 @@
 export function PatchInput({
     labelTitle, inputType, 
-    placeholder, register, 
-    defaultValue
+    placeholder, defaultValue, register
 }){
     return(
         <div

@@ -1,7 +1,7 @@
 
 
 export function DateInput({
-    placeholder, register
+    placeholder, register, original=null
 }){
     return(
         <div>
@@ -9,6 +9,7 @@ export function DateInput({
             <input 
                 type="date"
                 {...register}
+                defaultValue={original? original : ""}
             />
         </div>
     )

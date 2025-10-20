@@ -54,3 +54,22 @@ class InstituteModel(db.Model, SerializerMixin):
             raise ValueError("You must have ended the institute, after you started.")
         
         return value
+
+    @validates("institute_name")
+    def validate_name(self, key, value):
+        #1 - check there is a value that is a string 
+        if not isinstance(value, str):
+            try:
+                value = str(value)
+            except ValueError:
+                raise ValueError("Please enter a valid string")
+        
+        #2 - check if the name is registered
+        existing_institute = InstituteModel.query.filter(
+            InstituteModel.institute_name == value
+        ).first()
+        
+        if existing_institute and existing_institute.id != self.id:
+            raise ValueError(f"{value} is already registered on the app")
+        
+        return value
