@@ -26,7 +26,9 @@ class ProjectList(Resource):
                     project_video = json.get("projectVideo"),
                     project_start_date = json.get("projectStartDate"),
                     project_end_date = json.get("projectEndDate"),
-                    project_intro = json.get("projectIntro")
+                    project_intro = json.get("projectIntro"),
+                    github_url = json.get("gitHubLink"),
+                    website_url = json.get("webUrl")
                 )
                 db.session.add(new_project)
                 db.session.commit()

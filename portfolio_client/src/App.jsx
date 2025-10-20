@@ -16,18 +16,29 @@ function App() {
   const [activeSection, setActiveSection] = useState(null)
   const [allProjects, setAllProjects] = useState([])
   const [loggedInUser, setLoggedInUser] = useState(null)
+  const [allTech, setAllTech] = useState([])
+  const [allInstitutes, setAllInstitutes] = useState([])
+  const [allPoints, setAllPoints] = useState([])
 
   useFetch("/api/session", setLoggedInUser)
 
-  console.log(loggedInUser)
-
+  //Fetch all reviews
   useFetch("/api/reviews", setAllReviews)
 
   //Fetch all projects
-  useFetch("/api/projects", setAllProjects)
+  useFetch("/api/projects", setAllProjects, [allPoints])
+
+  //Fetch all tech
+  useFetch("/api/technologies", setAllTech)
 
   //Fetch user details
   useFetch("/api/users/1", setAccount)
+
+  //Fetch all institutes
+  useFetch("/api/institutes", setAllInstitutes)
+
+  //Fetch all points
+  useFetch("/api/points", setAllPoints)
 
   const landingRef = useRef(null)
   const projectRef = useRef(null)
@@ -137,6 +148,15 @@ function App() {
 
             allProjects={allProjects}
             setAllProjects={setAllProjects}
+
+            allTech={allTech}
+            setAllTech={setAllTech}
+
+            allInstitutes={allInstitutes}
+            setAllInstitutes={setAllInstitutes}
+
+            allPoints={allPoints}
+            setAllPoints={setAllPoints}
           />
         </div>
         :

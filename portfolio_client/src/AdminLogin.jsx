@@ -1,22 +1,22 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { PostInput } from "./postInput";
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { PostInput } from "./PostInput"
 
 export function AdminLogin() {
-  const [errorMsg, setErrorMsg] = useState("");
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const [errorMsg, setErrorMsg] = useState("")
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   const onSubmit = async (formData) => {
-    setErrorMsg("");
-    setLoading(true);
+    setErrorMsg("")
+    setLoading(true)
 
     try {
       const res = await fetch("/api/login", {
@@ -24,27 +24,29 @@ export function AdminLogin() {
         headers: { "Content-Type": "application/json" },
         credentials: "include", // important for Flask session cookies
         body: JSON.stringify(formData),
-      });
+      })
 
       if (!res.ok) {
-        const err = await res.json();
-        setErrorMsg(err.error || "Login failed");
-        setLoading(false);
-        return;
+        const err = await res.json()
+        setErrorMsg(err.error || "Login failed")
+        setLoading(false)
+        return
       }
 
-      const data = await res.json();
-      console.log("Logged in:", data);
+      const data = await res.json()
+      console.log("Logged in:", data)
 
       // Redirect only on success
-      navigate("/");
+      navigate("/")
     } catch (err) {
-      console.error(err);
-      setErrorMsg("Server unreachable. Make sure Flask is running on port 5555.");
+      console.error(err)
+      setErrorMsg(
+        "Server unreachable. Make sure Flask is running on port 5555."
+      )
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -70,13 +72,10 @@ export function AdminLogin() {
         })}
       />
 
-      <button disabled={loading}>
-        {loading ? "Logging in..." : "Login"}
-      </button>
+      <button disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
     </form>
-  );
+  )
 }
-
 
 // import { useState } from "react"
 // import { useFetch } from "./useFetch"
@@ -88,7 +87,7 @@ export function AdminLogin() {
 // export function AdminLogin(){
 //     const [loggedInUser, setLoggedInUser] = useState(false)
 //     const navigate = useNavigate()
-    
+
 //     const{
 //         register,
 //         handleSubmit,
@@ -111,7 +110,7 @@ export function AdminLogin() {
 //                 Login
 //             </h1>
 
-//             <PostInput 
+//             <PostInput
 //                 labelTitle={"Email: "}
 //                 inputType={"text"}
 //                 placeholder={"Please enter email"}
@@ -121,7 +120,7 @@ export function AdminLogin() {
 //                 })}
 //             />
 
-//             <PostInput 
+//             <PostInput
 //                 labelTitle={"Password: "}
 //                 inputType={"password"}
 //                 placeholder={"Please enter password"}

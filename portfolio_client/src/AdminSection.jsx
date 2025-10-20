@@ -1,12 +1,55 @@
 import { AdminProjects } from "./AdminProjects"
+import { AdminReviews } from "./AdminReviews"
+import { AdminTech } from "./AdminTech"
+import { AdminProjectPoints } from "./AdminProjectPoints"
+import { AdminInstitutes } from "./AdminInstitutes"
+import { useState } from "react"
 
 export function AdminSection({
-    allReviews,
-    setAllReviews,
+    allReviews, setAllReviews,
 
-    allProjects,
-    setAllProjects
+    allProjects, setAllProjects,
+
+    allTech, setAllTech,
+
+    allInstitutes, setAllInstitutes,
+
+    allPoints, setAllPoints
 }){
+    const [projectAction, setProjectAction] = useState(null)
+    const [instituteAction, setInstituteAction] = useState(null)
+
+    console.log(allInstitutes)
+
+    const addInstance = (instance, setSectionAction) => {
+        return(
+                <button
+                    className="admin-project-button admin-add-button"
+                    // onClick={() => setProjectAction("Add")}
+                    onClick={() => setSectionAction("Add")}
+                >
+                    Add {instance}
+                </button>
+        )
+    }
+
+    const sectionTitles = (section, component, setSectionAction) => {
+        return(
+            <div
+                className="admin-section-div"
+            >
+                <h1
+                    className="project-heading"
+                >
+                    {section}
+                </h1>
+
+                {addInstance(section, setSectionAction)}
+
+                {component}
+            </div>
+        )
+    }
     return(
         <div>
             <h1
@@ -15,21 +58,65 @@ export function AdminSection({
                 Admin Section
             </h1>
 
-            <div>
-                <h2
-                    className="project-heading"
-                >
-                    Projects
-                </h2>
-
-                {allProjects.map((projects, index) => (
+            {sectionTitles("Projects", 
+                allProjects.map((projects, index) => (
                     <AdminProjects 
                         {...projects}
+                        allProjects={allProjects}
                         setAllProjects={setAllProjects}
                         key={index}
+                        allInstitutes={allInstitutes}
+                        projectAction={projectAction}
+                        setProjectAction={setProjectAction}
+                        allPoints={allPoints}
+                        setAllPoints={setAllPoints}
+                        
                     />
-                ))}
-            </div>
+                )), setProjectAction
+            )}
+
+            {sectionTitles("Points", 
+                allPoints.map((point, index) => (
+                    <AdminProjectPoints 
+                        {...point}
+                        allPoints={allPoints}
+                        setAllPoints={setAllPoints}
+                    />
+                ))
+            )}
+
+            {sectionTitles("Technology",
+                allTech.map((tech, index) => (
+                    <AdminTech 
+                        {...tech}
+                        setAllTech = {setAllTech}
+                        key={index}
+                    />
+                ))
+            )}
+
+            {sectionTitles("Reviews", 
+                allReviews.map((review, index) => (
+                    <AdminReviews 
+                        {...review}
+                        setAllReviews={setAllReviews}
+                        key={index}
+                    />
+                ))
+            )}
+
+            {sectionTitles("Institutes", 
+                allInstitutes.map((institute, index) => (
+                    <AdminInstitutes 
+                        {...institute}
+                        setAllInstitutes={setAllInstitutes}
+                        allInstitutes={allInstitutes}
+                        instituteAction={instituteAction}
+                        setInstituteAction={setInstituteAction}
+                        key={index}
+                    />
+                )), setInstituteAction
+            )}
         </div>
     )
 }
