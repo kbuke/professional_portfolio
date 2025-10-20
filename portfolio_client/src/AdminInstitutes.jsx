@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { AdminAddInstitute } from "./AdminAddInstitute"
+import { AdminDeleteInstitute } from "./AdminDeleteInstitute"
 
 export function AdminInstitutes({
    id, institute_city, institute_country, institute_end_date,
@@ -54,7 +55,7 @@ export function AdminInstitutes({
                     <button
                         className="admin-edit-institute-button"
                         onClick={() => {
-                            setInstituteAction(edit)
+                            setInstituteAction("edit")
                             setSelectedInstitute(id)
                         }}
                     >
@@ -62,6 +63,18 @@ export function AdminInstitutes({
                     </button>
                 </div>
             </div>
+
+            {selectedInstitute === id && instituteAction === "delete"?
+                <AdminDeleteInstitute 
+                    institueName={institute_name}
+                    id={id}
+                    setAllInstitutes={setAllInstitutes}
+                    setInstituteAction={setInstituteAction}
+                    setSelectedInstitute={setSelectedInstitute}
+                />
+                :
+                null
+            }
         </>
     )
 }
