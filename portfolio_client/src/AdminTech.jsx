@@ -2,9 +2,10 @@ import { useState } from "react"
 import { AdminDeleteTech } from "./AdminDeleteTech"
 
 export function AdminTech({
-    tech_name, tech_img, id, setAllTech
+    tech_name, tech_img, id, setAllTech,
+    techAction, setTechAction
 }){
-    const [techAction, setTechAction] = useState(null)
+    // const [techAction, setTechAction] = useState(null)
     const [techId, setTechId] = useState(null)
 
     return(

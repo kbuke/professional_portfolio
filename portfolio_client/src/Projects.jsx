@@ -8,6 +8,8 @@ export function Projects({
 }){
     const [currentIndex, setCurrentIndex] = useState(0)
 
+    console.log(allProjects)
+
     const orderedProjects = [...allProjects].sort((a, b) => {
         return new Date(b.project_start_date) - new Date(a.project_start_date)
     })
@@ -20,10 +22,6 @@ export function Projects({
         )
     }
 
-    // const lowestProjectId = Math.min(...orderedProjects.map(p => p.id))
-    // const highestProjectId = Math.max(...orderedProjects.map(p => p.id))
-
-    // const currentProject = orderedProjects[currentIndex]
 
     const handlePrev = () => {
         if (currentIndex > 0) setCurrentIndex(currentIndex - 1)

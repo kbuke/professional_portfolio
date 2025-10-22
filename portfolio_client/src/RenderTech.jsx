@@ -8,11 +8,13 @@ export function RenderTech(){
 
     console.log(allTech)
 
+    const filterTech = allTech.filter(item => item.tech_type !== "API")
+
     return(
         <div
             className="tech-grid"
         >
-            {allTech.map((tech, index) => {
+            {filterTech.map((tech, index) => {
                 return(
                     <div 
                         key={index}

@@ -21,7 +21,7 @@ class ProjectPointsList(Resource):
                 )
                 db.session.add(new_point)
                 db.session.commit()
-                return {"message": "New project point posted."}
+                return new_point.to_dict(), 201
             except ValueError as e:
                 return {"error": [str(e)]}
 

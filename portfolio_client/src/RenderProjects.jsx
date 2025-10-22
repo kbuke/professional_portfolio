@@ -1,16 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import computerScreen from "./resources/computer-screen.png"
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { faL, faLaptop } from "@fortawesome/free-solid-svg-icons"
 
 export function RenderProjects({
     points, frontend, backend, id,
     project_name, project_start_date, project_end_date,
     project_intro, project_img, institute, setProjectMoreInfo,
-    github_url, cloud
+    github_url, cloud, website_url
 }){
-
-    console.log("id", id)
-    // const [projectId, setProjectId] = lowestProjectId
 
     //RENDER PROJECT DATES
     const projectDates = (text, date) => {
@@ -181,6 +179,20 @@ export function RenderProjects({
                         :
                         null
                     }
+
+                    {website_url ?
+                        <a
+                            href={website_url}
+                        >
+                            <FontAwesomeIcon 
+                                icon={faLaptop}
+                                className="github-repo-link"
+                            />
+                        </a>
+                        :
+                        null
+                    }
+
                 </div>
             </div>
         </div>

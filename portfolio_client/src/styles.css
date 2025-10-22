@@ -1067,6 +1067,17 @@ input:focus-visible, textarea:focus-visible, select{
     margin-right: 15px;
 }
 
+.tech-type-container{
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    margin-bottom: 20px;
+}
+
+.post-label{
+    font-weight: bold;
+}
+
 
 
 

@@ -4,6 +4,7 @@ import { AdminTech } from "./AdminTech"
 import { AdminProjectPoints } from "./AdminProjectPoints"
 import { AdminInstitutes } from "./AdminInstitutes"
 import { useState } from "react"
+import { AdminAddTech } from "./AdminAddTech"
 
 export function AdminSection({
     allReviews, setAllReviews,
@@ -18,6 +19,7 @@ export function AdminSection({
 }){
     const [projectAction, setProjectAction] = useState(null)
     const [instituteAction, setInstituteAction] = useState(null)
+    const [techAction, setTechAction] = useState(null)
 
     console.log(allInstitutes)
 
@@ -85,15 +87,25 @@ export function AdminSection({
                 ))
             )}
 
-            {sectionTitles("Technology",
-                allTech.map((tech, index) => (
-                    <AdminTech 
-                        {...tech}
-                        setAllTech = {setAllTech}
-                        key={index}
-                    />
-                ))
-            )}
+            {techAction === "Add"?
+                <AdminAddTech 
+                    allTech={allTech}
+                    setAllTech={setAllTech}
+                    setTechAction={setTechAction}
+                />
+                :
+                sectionTitles("Technology",
+                    allTech.map((tech, index) => (
+                        <AdminTech 
+                            {...tech}
+                            setAllTech = {setAllTech}
+                            techAction={techAction}
+                            setTechAction={setTechAction}
+                            key={index}
+                        />
+                    )), setTechAction
+                )
+            }
 
             {sectionTitles("Reviews", 
                 allReviews.map((review, index) => (
