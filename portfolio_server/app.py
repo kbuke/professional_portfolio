@@ -26,9 +26,7 @@ from resources.Email import EmailList
 
 from resources.BackendProject import BackEndProjectList, BackEndProject
 
-from resources.FrontEndProject import FrontEndProjectList
-
-from resources.Api import ApiList, Api
+from resources.FrontEndProject import FrontEndProjectList, FrontEndTech
 
 from resources.Review import ReviewList, Review
 
@@ -72,9 +70,7 @@ api.add_resource(BackEndProjectList, "/backendtech")
 api.add_resource(BackEndProject, "/backendtech/<int:id>")
 
 api.add_resource(FrontEndProjectList, "/frontendtech")
-
-api.add_resource(ApiList, "/apis")
-api.add_resource(Api, "/apis/<int:id>")
+api.add_resource(FrontEndTech, "/frontendtech/<int:id>")
 
 api.add_resource(ApiProjectList, "/apiprojects")
 api.add_resource(ApiProject, "/apiprojects/<int:id>")

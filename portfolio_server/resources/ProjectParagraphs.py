@@ -44,7 +44,8 @@ class Paragraph(Resource):
                     setattr(paragraph, attr, data[attr])
                 db.session.add(paragraph)
                 db.session.commit()
-                return {"message": f"Updated paragraph {id}"}, 201
+                # return {"message": f"Updated paragraph {id}"}, 201
+                return make_response(paragraph.to_dict(), 202)
             except ValueError as e:
                 return {"error": [str(e)]}
         else:
@@ -55,6 +56,6 @@ class Paragraph(Resource):
         if paragraph:
             db.session.delete(paragraph)
             db.session.commit()
-            return {"error": f"Paragraph {id} deleted"}, 201
+            return {"message": f"Paragraph {id} deleted"}, 201
         else:
             return {"error": f"Paragraph {id} not found"}, 404

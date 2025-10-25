@@ -5,6 +5,8 @@ import { AdminProjectPoints } from "./AdminProjectPoints"
 import { AdminInstitutes } from "./AdminInstitutes"
 import { useState } from "react"
 import { AdminAddTech } from "./AdminAddTech"
+import { AdminAddProject } from "./AdminAddProject"
+import { AdminProjectParagraphs } from "./AdminProjectParagraphs"
 
 export function AdminSection({
     allReviews, setAllReviews,
@@ -15,13 +17,25 @@ export function AdminSection({
 
     allInstitutes, setAllInstitutes,
 
-    allPoints, setAllPoints
+    allPoints, setAllPoints,
+
+    allFrontend, setAllFrontend,
+
+    allBackend, setAllBackend,
+
+    allCloud, setAllCloud,
+
+    allApi, setAllApi,
+
+    allParagraphs, setAllParagraph
 }){
     const [projectAction, setProjectAction] = useState(null)
     const [instituteAction, setInstituteAction] = useState(null)
     const [techAction, setTechAction] = useState(null)
+    const [projectId, setProjectId] = useState(null)
 
-    console.log(allInstitutes)
+    console.log(allParagraphs)
+
 
     const addInstance = (instance, setSectionAction) => {
         return(
@@ -60,21 +74,54 @@ export function AdminSection({
                 Admin Section
             </h1>
 
-            {sectionTitles("Projects", 
-                allProjects.map((projects, index) => (
-                    <AdminProjects 
-                        {...projects}
-                        allProjects={allProjects}
-                        setAllProjects={setAllProjects}
+            {projectAction === "Add"? 
+                <AdminAddProject 
+                    allProjects={allProjects}
+                    setAllProjects={setAllProjects}
+                    allInstitutes={allInstitutes}
+                    setProjectAction={setProjectAction}
+                />
+                :
+                sectionTitles("Projects", 
+                    allProjects.map((projects, index) => (
+                        <AdminProjects 
+                            {...projects}
+                            allProjects={allProjects}
+                            setAllProjects={setAllProjects}
+                            key={index}
+                            allInstitutes={allInstitutes}
+                            projectAction={projectAction}
+                            setProjectAction={setProjectAction}
+                            allPoints={allPoints}
+                            setAllPoints={setAllPoints}
+                            allTech={allTech}
+                            setAllTech={setAllTech}
+                            allFrontend={allFrontend}
+                            setAllFrontend={setAllFrontend}
+                            allBackend={allBackend}
+                            setAllBackend={setAllBackend}
+                            allCloud={allCloud}
+                            setAllCloud={setAllCloud}
+                            allApi={allApi}
+                            setAllApi={setAllApi}
+                            projectId={projectId}
+                            setProjectId={setProjectId}
+                            allParagraphs={allParagraphs}
+                            setAllParagraph={setAllParagraph}
+                        />
+                    )), setProjectAction
+                )
+            }
+
+            {sectionTitles("Paragraphs", 
+                allParagraphs.map((paragraph, index) => (
+                    <AdminProjectParagraphs
+                        {...paragraph}
+                        allParagraphs={allParagraphs}
+                        setAllParagraph={setAllParagraph}
                         key={index}
-                        allInstitutes={allInstitutes}
-                        projectAction={projectAction}
-                        setProjectAction={setProjectAction}
-                        allPoints={allPoints}
-                        setAllPoints={setAllPoints}
-                        
                     />
-                )), setProjectAction
+                ))
             )}
 
             {sectionTitles("Points", 
@@ -83,6 +130,7 @@ export function AdminSection({
                         {...point}
                         allPoints={allPoints}
                         setAllPoints={setAllPoints}
+                        key={index}
                     />
                 ))
             )}

@@ -19,6 +19,11 @@ function App() {
   const [allTech, setAllTech] = useState([])
   const [allInstitutes, setAllInstitutes] = useState([])
   const [allPoints, setAllPoints] = useState([])
+  const [allBackend, setAllBackend] = useState([])
+  const [allFrontend, setAllFrontend] = useState([])
+  const [allApi, setAllApi] = useState([])
+  const [allCloud, setAllCloud] = useState([])
+  const [allParagraphs, setAllParagraph] = useState([])
 
   useFetch("/api/session", setLoggedInUser)
 
@@ -26,7 +31,7 @@ function App() {
   useFetch("/api/reviews", setAllReviews)
 
   //Fetch all projects
-  useFetch("/api/projects", setAllProjects, [allPoints])
+  useFetch("/api/projects", setAllProjects, [allPoints, allBackend, allFrontend, allApi, allCloud, allParagraphs])
 
   //Fetch all tech
   useFetch("/api/technologies", setAllTech)
@@ -40,10 +45,28 @@ function App() {
   //Fetch all points
   useFetch("/api/points", setAllPoints)
 
+  //Fetch all frontend tech
+  useFetch("/api/frontendtech", setAllFrontend, [allTech])
+
+  //Fetch all backend tech
+  useFetch("/api/backendtech", setAllBackend, [allTech])
+
+  //Fetch all apis
+  useFetch("/api/apiprojects", setAllApi, [allTech])
+
+  //Fetch all cloud
+  useFetch("/api/cloudprojects", setAllCloud, [allTech])
+
+  //Fetch all paragraphs
+  useFetch("/api/paragrahps", setAllParagraph)
+
   const landingRef = useRef(null)
   const projectRef = useRef(null)
   const reviewsRef = useRef(null)
   const contactRef = useRef(null)
+
+  console.log(allProjects)
+  console.log(allApi)
 
   // SCROLL FUNCTION
   const scrollToSection = (section) => {
@@ -157,6 +180,21 @@ function App() {
 
             allPoints={allPoints}
             setAllPoints={setAllPoints}
+
+            allFrontend={allFrontend}
+            setAllFrontend={setAllFrontend}
+
+            allBackend={allBackend}
+            setAllBackend={setAllBackend}
+
+            allCloud={allCloud}
+            setAllCloud={setAllCloud}
+
+            allApi={allApi}
+            setAllApi={setAllApi}
+
+            allParagraphs={allParagraphs}
+            setAllParagraph={setAllParagraph}
           />
         </div>
         :

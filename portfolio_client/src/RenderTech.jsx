@@ -6,8 +6,6 @@ export function RenderTech(){
 
     useFetch("/api/technologies", setAllTech)
 
-    console.log(allTech)
-
     const filterTech = allTech.filter(item => item.tech_type !== "API")
 
     return(

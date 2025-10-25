@@ -12,17 +12,26 @@ class ApiProjectList(Resource):
     
     def post(self):
         json = request.get_json()
+        print("Incoming JSON:", json)  # visible in console
+
         if json:
             try:
                 new_api_project = ApiProjects(
                     project_id = json.get("projectId"),
-                    api_id = json.get("apiId")
+                    tech_id = json.get("techId")
                 )
+                print("Created ApiProjects instance:", new_api_project)
+
                 db.session.add(new_api_project)
                 db.session.commit()
+                print("Committed successfully!")
                 return new_api_project.to_dict(), 201
-            except ValueError as e:
-                return {"error": str[e]}
+
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                return {"error": str(e)}, 400
+
 
 class ApiProject(Resource):
     def get(self, id):

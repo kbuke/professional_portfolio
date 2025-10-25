@@ -15,7 +15,6 @@ export function ContactSection({
     const [sentEmail, setSentEmail] = useState(false)
 
     useFetch("/api/socials", setAllSocials)
-    console.log(allSocials)
 
 
     return(

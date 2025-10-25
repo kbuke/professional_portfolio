@@ -5,7 +5,7 @@ import { faL, faLaptop } from "@fortawesome/free-solid-svg-icons"
 
 export function RenderProjects({
     points, frontend, backend, id,
-    project_name, project_start_date, project_end_date,
+    project_name, project_start_date, project_end_date, apis,
     project_intro, project_img, institute, setProjectMoreInfo,
     github_url, cloud, website_url
 }){
@@ -35,7 +35,7 @@ export function RenderProjects({
 
     //RENDER PROJECT TECH
     const renderProjectTech = (techType, label) => {
-        return(
+        return techType?.length > 0 ? 
             <div
                 className="project-tech-container"
             >
@@ -62,7 +62,8 @@ export function RenderProjects({
                     </div>
                 </div>
             </div>
-        )
+        :
+            null
     } 
 
     return(
@@ -94,11 +95,11 @@ export function RenderProjects({
                         {project_intro}
                     </p>
 
-                    {points.length === 0 ?
+                    {points?.length === 0 ?
                         <p>No points to display.</p>
                         :
                         <ul>
-                            {points.map((point, index) => {
+                            {points?.map((point, index) => {
                                 return(
                                     <li
                                         key={index}
@@ -127,6 +128,7 @@ export function RenderProjects({
                     {renderProjectTech(frontend, "Frontend Tech")}
                     {renderProjectTech(backend, "Backend Tech")}
                     {renderProjectTech(cloud, "Cloud Tech")}
+                    {renderProjectTech(apis, "API Tech")}
                 </div>
             </div>
 

@@ -37,7 +37,7 @@ class ProjectModel(db.Model, SerializerMixin):
     frontend = db.relationship("TechnologyModel", back_populates = "project_front_end", secondary = "front_end_tech")
 
     # relationship with apis
-    apis = db.relationship("ApiModel", back_populates = "projects", secondary = "api_projects")
+    apis = db.relationship("TechnologyModel", back_populates = "project_api", secondary = "api_projects")
 
     # relationship with cloud engineering
     cloud = db.relationship("TechnologyModel", back_populates = "project_cloud", secondary = "cloud_projects")
@@ -63,7 +63,9 @@ class ProjectModel(db.Model, SerializerMixin):
 
         "-frontend.project_front_end",
 
-        "-apis.projects",
+        # "-apis.projects",
+
+        "-apis.project_api",
     )
 
     # VALIDATIONS

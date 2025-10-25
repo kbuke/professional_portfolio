@@ -20,3 +20,13 @@ class FrontEndProjectList(Resource):
             return new_front_end_project.to_dict(), 201
         except ValueError as e:
             return {"error": [str(e)]}
+
+class FrontEndTech(Resource):
+    def delete(self, id):
+        tech = FrontEndProjectModel.query.filter(FrontEndProjectModel.id==id).first()
+        if tech:
+            db.session.delete(tech)
+            db.session.commit()
+            return {"message": f"Tech {id} deleted"}, 201
+        else:
+            return {"error": f"Tech {id} not found"}, 404

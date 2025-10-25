@@ -20,19 +20,30 @@ class TechnologyModel(db.Model, SerializerMixin):
     # relation with cloud tech
     project_cloud = db.relationship("ProjectModel", back_populates = "cloud", secondary = "cloud_projects")
 
+    # relation with api
+    project_api = db.relationship("ProjectModel", back_populates = "apis", secondary = "api_projects")
+
     # SERIALIZATION
     serialize_rules = (
         "-project_front_end.frontend",
         "-project_front_end.backend",
         "-project_front_end.cloud",
+        "-project_front_end.project_api"
 
         "-project_back_end.backend",
         "-project_back_end.frontend",
         "-project_back_end.cloud",
+        "-project_back_end.project_api"
 
         "-project_cloud.frontend",
         "-project_cloud.backend",
         "-project_cloud.cloud",
+        "-project_cloud.project_api",
+
+        "-project_api.project_front_end",
+        "-project_api.project_back_end",
+        "-project_api.project_cloud",
+        "-project_api.apis",
     )
 
     # VALIDATIONS

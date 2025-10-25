@@ -8,8 +8,6 @@ export function Projects({
 }){
     const [currentIndex, setCurrentIndex] = useState(0)
 
-    console.log(allProjects)
-
     const orderedProjects = [...allProjects].sort((a, b) => {
         return new Date(b.project_start_date) - new Date(a.project_start_date)
     })
@@ -31,7 +29,6 @@ export function Projects({
         if(currentIndex < orderedProjects.length - 1) setCurrentIndex(currentIndex + 1)
     }
 
-    console.log(allProjects)
 
     return(
         <div

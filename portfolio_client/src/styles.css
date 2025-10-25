@@ -838,10 +838,8 @@ input:focus-visible, textarea:focus-visible, select{
     display: grid;
     grid-template-columns: 1fr 2fr;
     align-items: center;
-    /* display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 10px; */
+    justify-content: center;
+    border-bottom: solid;
 }
 
 .admin-section-div{
@@ -858,10 +856,13 @@ input:focus-visible, textarea:focus-visible, select{
 .admin-project-button-div{
     width: 100%;
 
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: center;
     gap: 20px;
+    padding: 20px;
 }
+
 
 .admin-project-button{
     height: auto;
@@ -883,6 +884,38 @@ input:focus-visible, textarea:focus-visible, select{
     );
 }
 
+.add-frontend-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(226, 89%, 45%),
+        hsl(0, 0%, 0%)
+    );
+}
+
+.add-backend-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(307, 93%, 51%),
+        hsl(0, 0%, 0%)
+    );
+}
+
+.add-cloud-tech-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(0, 0%, 0%),
+        hsl(335, 71%, 36%)
+    );
+}
+
+.add-api-tech-button{
+    background-image: linear-gradient(
+        to right,
+        hsl(200, 56%, 53%),
+        hsl(0, 0%, 0%)
+    );
+}
+
 .admin-edit-button{
     background-image: linear-gradient(
         to right,
@@ -890,6 +923,59 @@ input:focus-visible, textarea:focus-visible, select{
         hsl(104, 50%, 51%)
     );
 }
+
+.add-project-tech-div{
+    width: 100%;
+    text-align: center;
+    background-image: linear-gradient(
+        to right bottom,
+        hsl(0, 12%, 94%),
+        hsl(0, 5%, 35%)
+    );
+    border-radius: 0.3em;
+}
+
+.add-project-tech-grid{
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 30px;
+    align-items: center;
+}
+
+.admin-project-tech-cancel-button{
+    height: 50px;
+    width: 150px;
+    border-radius: 0.3em;
+    background-image: linear-gradient(
+        to right,
+        hsl(0, 84%, 65%),
+        hsl(0, 96%, 30%)
+    );
+    color: white;
+    padding: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.available-project-tech-div{
+    display: inline-block;
+    border-radius: 0.3em;
+    background-color: white;
+    padding: 10px;
+    width: 100px;
+    cursor: pointer;
+}
+
+.available-project-tech-img{
+    height: 40px;
+}
+
+
 
 .admin-review-block{
     display: inline-block;
@@ -1075,6 +1161,43 @@ input:focus-visible, textarea:focus-visible, select{
 }
 
 .post-label{
+    font-weight: bold;
+}
+
+.admin-paragraph-option-container{
+    display: flex;
+    gap: 40px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-paragraph{
+    background-image: linear-gradient(
+        to right,
+        hsl(0, 20%, 20%),
+        hsl(20, 40%, 50%)
+    );
+}
+
+.delete-paragraph{
+    background-image: linear-gradient(
+        to right,
+        hsl(4, 47%, 44%),
+        hsl(0, 100%, 45%)
+    );
+}
+
+.admin-paragraph-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.paragraph-text{
+    font-size: 18px;
+}
+
+.paragraph-project{
     font-weight: bold;
 }
 
