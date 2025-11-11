@@ -10,6 +10,7 @@ class ProjectParagraphModel(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key = True)
     paragraph = db.Column(db.String)
+    paragraph_title = db.Column(db.String, nullable = True)
     paragraph_img_1 = db.Column(db.String)
     paragraph_img_2 = db.Column(db.String)
 

@@ -29,6 +29,14 @@ export function AdminAddProjectParagrapgh({
         >
             <h1>Add New Paragraph</h1>
 
+            <PostInput 
+                labelTitle={"Paragraph Title"}
+                inputType={"text"}
+                placeholder={"Please enter paragraph title"}
+                additionalClassName={"new-para-title"}
+                register={register("paragraphTitle")}
+            />
+
             <textarea 
                 placeholder="Please enter paragraph"
                 {...register("paragraph")}

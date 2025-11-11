@@ -16,6 +16,7 @@ class ProjectParagraphList(Resource):
             try:
                 new_paragraph = ProjectParagraphModel(
                     paragraph = json.get("paragraph"),
+                    paragraph_title = json.get("paragraphTitle"),
                     paragraph_img_1 = json.get("paraImg1"),
                     paragraph_img_2 = json.get("paraImg2"),
                     project_id = json.get("projectId")

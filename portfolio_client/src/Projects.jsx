@@ -2,11 +2,15 @@ import { useState } from "react";
 import { RenderProjects } from "./RenderProjects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faArrowAltCircleRight, faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons"
+import { ProjectPopUp } from "./ProjectPopUp";
 
 export function Projects({
     allProjects,
 }){
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [selectedProject, setSelectedProject] = useState(null)
+
+    console.log(`selected project ${selectedProject}`)
 
     const orderedProjects = [...allProjects].sort((a, b) => {
         return new Date(b.project_start_date) - new Date(a.project_start_date)
@@ -106,11 +110,21 @@ export function Projects({
                     {orderedProjects.map((project, index) => (
                         <RenderProjects 
                             {...project}
+                            setSelectedProject={setSelectedProject}
                             key={index}
                         />
                     ))}
                 </div>
             </div>
+
+            {selectedProject ?
+                <ProjectPopUp 
+                    selectedProject={selectedProject}
+                    setSelectedProject={setSelectedProject}
+                />
+                :
+                null
+            }
         </div>
     )
 }

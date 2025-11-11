@@ -6,8 +6,8 @@ import { faL, faLaptop } from "@fortawesome/free-solid-svg-icons"
 export function RenderProjects({
     points, frontend, backend, id,
     project_name, project_start_date, project_end_date, apis,
-    project_intro, project_img, institute, setProjectMoreInfo,
-    github_url, cloud, website_url
+    project_intro, project_img, institute,
+    github_url, cloud, website_url, setSelectedProject
 }){
 
     //RENDER PROJECT DATES
@@ -114,7 +114,7 @@ export function RenderProjects({
 
                     <button
                         className="project-info-button"
-                        onClick={() => setProjectMoreInfo(true)}
+                        onClick={() => setSelectedProject(id)}
                     >
                         <span>
                             More Information
